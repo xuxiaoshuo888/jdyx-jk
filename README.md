@@ -1,5 +1,7 @@
 # jdyx-jk
 
+## Vue-cli + ElementUI + Echarts
+
 ## Project setup
 ```
 npm install
