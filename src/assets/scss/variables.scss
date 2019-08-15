@@ -1,0 +1,18 @@
+/*
+1920*1080设计稿，
+html 的 初始font-size设置的62.5%，也即 16*62.5% = 10px,例：400px 即为40rem
+根据浏览器窗口宽度变化，适配 1377*768、1920*1080
+ */
+$width1: 44rem; //442px
+$width2: 91.6rem; //916px
+$width3: 33.6rem; //336px
+$width4: 54.9rem; //549px
+
+$padding: 3rem; //30px
+
+$height1: 20.3rem; //203px
+$height2: 32rem; //320px
+$height3: 10.2rem; //102px
+$height4: 30.4rem; //304px
+$height5: 53.8rem; //538px
+$bg1: rgba(255, 255, 255, 0.1);

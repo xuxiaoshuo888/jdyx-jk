@@ -1,16 +1,16 @@
 <template>
-    <div id="gender" style="width:100%;height: 300px;"></div>
+    <!--折线图-->
+    <div id="main"></div>
 </template>
 
 <script>
     var echarts = require('echarts');
-
     export default {
-        name: "gender",
+        name: "polygonal",
         methods: {
             init() {
                 // 基于准备好的dom，初始化echarts实例
-                var myChart = echarts.init(document.getElementById('gender'));
+                var myChart = echarts.init(document.getElementById('main'));
                 myChart.setOption({
                     color: ['#FFD441', '#2AC5A9', '#ED82B0', '#0081D0', '#D58AEA', '#74C3CE', '#6283C0', '#5F83B7'],
                     title: {textStyle: '#fff'},

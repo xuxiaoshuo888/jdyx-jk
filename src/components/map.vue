@@ -1,10 +1,10 @@
 <template>
-    <div class="band-bgcolor">时间-人数统计表</div>
+    
 </template>
 
 <script>
     export default {
-        name: "time"
+        name: "map"
     }
 </script>
 
