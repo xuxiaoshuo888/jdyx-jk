@@ -1,9 +1,15 @@
 <template>
     <div class="contain">
         <div class="col1">
-            <div id="a1" class="type1">1</div>
-            <div id="a2" class="type1">2</div>
-            <div id="a3" class="type1">3</div>
+            <div id="a1" class="type1">
+                <a1></a1>
+            </div>
+            <div class="type1">
+                <a2></a2>
+            </div>
+            <div class="type1">
+                <a3></a3>
+            </div>
             <div id="a4" class="type2">4</div>
         </div>
         <div class="col2">
@@ -13,7 +19,9 @@
                     <div class="type3"></div>
                     <div class="type4"></div>
                 </div>
-                <div class="mid-right-map"></div>
+                <div class="mid-right-map">
+                    <!--<c2></c2>-->
+                </div>
             </div>
             <div class="mid-bottom">
                 <div id="b4" class="type2 mid-bottom-left"></div>
@@ -30,12 +38,13 @@
 
 <script>
     /*业务组件*/
-    import Total from './total/total.vue'
-    import Time from './time/time.vue'
-    import Gender from './gender/gender.vue'
-    import weather from './weather/weather.vue'
+    import a1 from './a1/a1.vue'
+    import a2 from './a2/a2.vue'
+    import a3 from './a3/a3.vue'
+    import c2 from './c2/c2.vue'
+
     /*图标类组件*/
-    import polygonal from '@/components/polygonal'
+    // import polygonal from '@/components/polygonal'
 
     var echarts = require('echarts');
 
@@ -147,7 +156,7 @@
     var Chart_d3;
     export default {
         name: "index",
-        components: {Total, Time, Gender, weather, polygonal},
+        components: {a1, a2, a3, c2},
         data() {
             return {}
         },
