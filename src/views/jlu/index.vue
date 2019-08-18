@@ -16,8 +16,34 @@
             <div class="type-head">吉林大学2019级自助数字化迎新展示</div>
             <div class="mid-contain">
                 <div class="mid-left">
-                    <div class="type3"></div>
-                    <div class="type4"></div>
+                    <div class="type3" style="padding-left: 15px;padding-right: 15px;box-sizing: border-box;" id="b2">
+                        <div class="title">
+                            最新报到的学生
+                        </div>
+                        <el-row :gutter="20">
+                            <el-col :span="12">
+                                <el-row>
+                                    <el-col :span="12" class="head">姓名</el-col>
+                                    <el-col :span="12" class="head">时间</el-col>
+                                </el-row>
+                                <el-row v-for="i in 5" :key="i">
+                                    <el-col :span="12" class="body">张三</el-col>
+                                    <el-col :span="12" class="body">10：30</el-col>
+                                </el-row>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-row>
+                                    <el-col :span="12" class="head">姓名</el-col>
+                                    <el-col :span="12" class="head">时间</el-col>
+                                </el-row>
+                                <el-row v-for="i in 5" :key="i">
+                                    <el-col :span="12" class="body">张三</el-col>
+                                    <el-col :span="12" class="body">10：30</el-col>
+                                </el-row>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div class="type4" id="b3"></div>
                 </div>
                 <div class="mid-right-map">
                     <!--<c2></c2>-->

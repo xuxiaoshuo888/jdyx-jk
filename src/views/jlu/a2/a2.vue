@@ -88,8 +88,8 @@
         ]
     };
 
-    var echarts = require('echarts');
-    var Chart_a2;
+    const echarts = require('echarts');
+    let Chart_a2;
     export default {
         name: "a2",
         data() {
@@ -117,9 +117,11 @@
     .a2 {
         padding: 2.8rem;
         @include flex(space-between, center);
+
         .a2-left {
             .rs {
                 @include flex(space-between, center);
+
                 .pot {
                     width: 12px;
                     height: 12px;
@@ -128,6 +130,7 @@
                     border-radius: 50%;
                     margin-right: 2rem;
                 }
+
                 .ts {
                     font-size: 1.6rem;
                     font-family: SourceHanSansCN-Regular;
@@ -136,6 +139,7 @@
                     line-height: 2rem;
                     margin-right: 0.4rem;
                 }
+
                 .sz {
                     span {
                         display: inline-block;
@@ -150,35 +154,44 @@
                         line-height: 2.6rem;
                         margin: 0 0.2rem;
                     }
+
                     margin: 0 auto;
                 }
             }
+
             .color1 {
                 margin-bottom: 1.7rem;
+
                 .pot {
                     background-color: rgba(255, 132, 68, 1);
                 }
+
                 .sz {
                     span {
                         background-color: rgba(255, 132, 68, 1);
                     }
                 }
             }
+
             .color2 {
                 margin-bottom: 1.7rem;
+
                 .pot {
                     background-color: rgba(42, 197, 169, 1);
                 }
+
                 .sz {
                     span {
                         background-color: rgba(42, 197, 169, 1);
                     }
                 }
             }
+
             .color3 {
                 .pot {
                     background-color: rgba(237, 130, 176, 1);
                 }
+
                 .sz {
                     span {
                         background-color: rgba(237, 130, 176, 1);
@@ -186,6 +199,7 @@
                 }
             }
         }
+
         .a2-right {
             width: 14.9rem;
             height: 14.9rem;

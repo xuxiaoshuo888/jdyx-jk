@@ -70,6 +70,7 @@
             this.initA3()
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
+                console.log('resize a3')
                 setTimeout(() => {
                     Chart_a3.resize();
                 }, 300)
