@@ -37,10 +37,10 @@
         data() {
             return {
                 count:5,
-                zrs: '',
-                ybd: '',
-                wbd: '',
-                bdl: '',
+                zrs: '00000',
+                ybd: '00000',
+                wbd: '00000',
+                bdl: '0',
                 option: {
                     color: ['#FFD441', '#2AC5A9', '#ED82B0', '#0081D0', '#D58AEA', '#74C3CE', '#6283C0', '#5F83B7'],
                     tooltip: {
@@ -57,7 +57,7 @@
                         left: "center",
                         top: "center",
                         style: {
-                            text: "",
+                            text: "10%",
                             textAlign: "center",
                             fill: "#fff",
                             fontSize: 16

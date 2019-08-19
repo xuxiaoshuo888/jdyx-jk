@@ -10,8 +10,8 @@
             <div class="type1">
                 <a3></a3>
             </div>
-            <div id="a4" class="type2">
-                <histogram :da="a4_data"></histogram>
+            <div class="type2">
+                <a4></a4>
             </div>
         </div>
         <div class="col2">
@@ -56,14 +56,24 @@
                 </div>
             </div>
             <div class="mid-bottom">
-                <div id="b4" class="type2 mid-bottom-left"></div>
-                <div id="c3" class="type2 mid-bottom-right"></div>
+                <div class="type2 mid-bottom-left">
+                    <b4></b4>
+                </div>
+                <div class="type2 mid-bottom-right">
+                    <c3></c3>
+                </div>
             </div>
         </div>
         <div class="col3">
-            <div id="d1" class="type2"></div>
-            <div id="d2" class="type2"></div>
-            <div id="d3" class="type2"></div>
+            <div class="type2">
+                <d1></d1>
+            </div>
+            <div class="type2">
+                <d2></d2>
+            </div>
+            <div class="type2">
+                <d3></d3>
+            </div>
         </div>
     </div>
 </template>
@@ -73,10 +83,18 @@
     import a1 from './a1/a1.vue'
     import a2 from './a2/a2.vue'
     import a3 from './a3/a3.vue'
-    import c2 from './c2/c2.vue'
+    import a4 from './a4/a4.vue'
 
+    import b4 from './b4/b4.vue'
+    import c3 from './c3/c3.vue'
+
+
+    import c2 from './c2/c2.vue'
+    import d1 from './d1/d1.vue'
+    import d2 from './d2/d2.vue'
+
+    import d3 from './d3/d3.vue'
     /*图表类组件*/
-    import histogram from '@/components/histogram'
 
     var echarts = require('echarts');
 
@@ -225,48 +243,21 @@
         ]
     }
     //实例
-    var Chart_a4;
-
-    var Chart_b4;
-    var Chart_c3;
-
-    var Chart_d1;
-    var Chart_d2;
-    var Chart_d3;
     export default {
         name: "index",
-        components: {a1, a2, a3, c2,histogram},
+        components: {a1, a2, a3, a4, b4, c3, c2, d1, d2, d3},
         data() {
             return {
                 b2_list: [],
-                a4_data:option3
+                a4_data: option3
             }
         },
         methods: {
-            initA4() {
-                Chart_a4 = echarts.init(document.getElementById('a4'));
-                Chart_a4.setOption(option3);
-            },
-            initB4() {
-                Chart_b4 = echarts.init(document.getElementById('b4'));
-                Chart_b4.setOption(option1);
-            },
-            initC3() {
-                Chart_c3 = echarts.init(document.getElementById('c3'));
-                Chart_c3.setOption(option1);
-            },
-            initD1() {
-                Chart_d1 = echarts.init(document.getElementById('d1'));
-                Chart_d1.setOption(option1);
-            },
             initD2() {
                 Chart_d2 = echarts.init(document.getElementById('d2'));
                 Chart_d2.setOption(option2);
             },
-            initD3() {
-                Chart_d3 = echarts.init(document.getElementById('d3'));
-                Chart_d3.setOption(option1);
-            },
+
             getData_b2() {
                 this.$axios.get('/api/newstudent').then(res => {
                     console.log(res)
@@ -277,25 +268,11 @@
         mounted() {
             this.getData_b2()
             //挂在时初始化
-            this.initA4();
-
-            this.initB4();
-
-            this.initC3();
-
-            this.initD1();
             this.initD2();
-            this.initD3();
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
                 setTimeout(() => {
-                    Chart_a4.resize();
-                    Chart_b4.resize();
-                    Chart_c3.resize();
-
-                    Chart_d1.resize();
                     Chart_d2.resize();
-                    Chart_d3.resize();
                 }, 300)
             }
         }

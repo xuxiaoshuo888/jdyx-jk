@@ -1,21 +1,24 @@
 <template>
-    <div id="d3" class="fullSize"></div>
+    <!--新生前十-->
+    <div id="b4" class="fullSize"></div>
 </template>
 
 <script>
     var echarts = require('echarts');
+    var Chart_b4;
 
-    var Chart_d3;
-    // color: ['#FFD441', '#2AC5A9', '#ED82B0', '#0081D0', '#D58AEA', '#74C3CE', '#6283C0', '#5F83B7'],
     export default {
-        name: "d3",
+        name: "b4",
         data() {
             return {
+                list: [],
+                list_name: ['机械与电气工程学院', '水利与生态工程学院', '信息工程学院', '土木与建筑工程学院', '经济贸易学院', '人文与艺术学院'],//学院名集合
+                list_value: [666, 555, 777, 888, 999, 444],//对应值集合
                 option: {
-                    color: ['#2AC5A9', '#6283C0'],
+                    color: ['#74C3CE', '#0081D0'],
                     textStyle: {color: '#fff'},
                     title: {
-                        text: '各省份学生人数统计',
+                        text: '新生人数前十的学院',
                         subtext: '',
                         textStyle: '#fff'
                     },
@@ -38,7 +41,7 @@
                     },
                     yAxis: {
                         type: 'category',
-                        data: ['湖北', '湖南', '广东', '广西', '云南', '贵州']
+                        data: ['机械与电气工程学院', '水利与生态工程学院', '信息工程学院', '土木与建筑工程学院', '经济贸易学院', '人文与艺术学院']
                     },
                     series: [
                         {
@@ -51,20 +54,37 @@
             }
         },
         methods: {
-            initD3() {
-                Chart_d3 = echarts.init(document.getElementById('d3'));
-                Chart_d3.setOption(this.option);
+            initB4() {
+                Chart_b4 = echarts.init(document.getElementById('b4'));
+                console.log(this.option)
+                Chart_b4.setOption(this.option);
             },
+            getData() {
+                this.$axios.get('/api/xy').then(res => {
+                    this.list = res.data.data.data
+                    let list_name = []
+                    let list_value = []
+                    for (let x = 0; x < this.list.length; x++) {
+                        list_name.push(this.list[x].deptname)
+                        list_value.push(this.list[x].rs)
+                    }
+                }).then(
+                    //数据更新后
+                    Chart_b4.setOption(this.option)
+                )
+
+            }
         },
         mounted() {
-            this.initD3()
+            // this.getData()
+            this.initB4()
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
+                console.log('resize a3')
                 setTimeout(() => {
-                    Chart_d3.resize();
+                    Chart_b4.resize();
                 }, 300)
             }
-
         }
     }
 </script>
