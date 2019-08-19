@@ -3,12 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
-import Echarts from 'echarts'
+import axios from './request'
 
 import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(ElementUI)
-Vue.$echarts = Echarts
+Vue.prototype.$axios = axios
 Vue.config.productionTip = false;
 
 /*pc端适配*/

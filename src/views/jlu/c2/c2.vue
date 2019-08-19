@@ -11,32 +11,32 @@
         name: "c2",
         data() {
             return {
-                // option: {
-                //     color: ['#FFD441', '#2AC5A9'],
-                //     textStyle: {color: '#fff'},
-                //     tooltip: {
-                //         trigger: 'item',
-                //         formatter: '{b}'
-                //     },
-                //     series: [
-                //         {
-                //             name: '中国',
-                //             type: 'map',
-                //             mapType: 'china',
-                //             label: {
-                //                 normal: {
-                //                     show: true
-                //                 },
-                //                 emphasis: {
-                //                     show: true
-                //                 }
-                //             },
-                //             data:[
-                //                 {name:'广东'}
-                //             ]
-                //         }
-                //     ]
-                // }
+                option: {
+                    color: ['#FFD441', '#2AC5A9'],
+                    textStyle: {color: '#fff'},
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{b}'
+                    },
+                    series: [
+                        {
+                            name: '中国',
+                            type: 'map',
+                            mapType: 'china',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data:[
+                                {name:'广东'}
+                            ]
+                        }
+                    ]
+                }
             }
         },
         methods: {

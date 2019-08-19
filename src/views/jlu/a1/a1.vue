@@ -2,36 +2,95 @@
     <div id="a1" class="a1">
         <div class="top">
             <div class="top-left">
-                <div class="time">18:08:08</div>
-                <div class="date">2019/8/7 pm 周三</div>
+                <div class="time">{{time}}</div>
+                <div class="date">{{date}} 周三</div>
+                <!--pm：{{data.pm25}}-->
             </div>
             <div class="top-mid"></div>
-            <div class="top-right1">3</div>
+            <div class="top-right1"><img :src="data.dayIcon" alt=""></div>
             <div class="top-right2">
-                <div class="temp">25
+                <div class="temp">{{data.temp}}
                     <span>℃</span>
                 </div>
                 <div class="weather">多云转晴</div>
             </div>
             <div class="top-right3">
-                <div>多云</div>
-                <div>16~28℃</div>
-                <div>吉林</div>
+                <div>{{data.weather}}</div>
+                <div>{{data.nightTemp}}~{{data.dayTemp}}℃</div>
+                <div>pm：{{data.pm25}}</div>
             </div>
         </div>
         <div class="bot">
-            <div class="bot-block" v-for="i in 6" :key="i">
-                <div class="wea">1</div>
-                <div class="temp">18~28℃</div>
-                <div class="week">周四</div>
-            </div>
+            {{province}} {{city}} {{area}}
+            <!--<div class="bot-block" v-for="i in 6" :key="i">-->
+            <!--<div class="wea">1</div>-->
+            <!--<div class="temp">18~28℃</div>-->
+            <!--<div class="week">周四</div>-->
+            <!--</div>-->
         </div>
     </div>
 </template>
 
 <script>
+    // 对Date的扩展，将 Date 转化为指定格式的String
+    // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
+    // 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
+
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
     export default {
-        name: "a1"
+        name: "a1",
+        data() {
+            return {
+                province: "1",
+                city: "2",
+                area: "3",
+                time: "",
+                date: "",
+                data: {}
+            }
+        },
+        methods: {
+            getData() {//天气
+                this.$axios.get('/api/weather').then(res => {
+                    console.log(res.data)
+                    this.province = res.data.data.province;
+                    this.city = res.data.data.city;
+                    this.area = res.data.data.area;
+                    this.data = res.data.data.data
+                })
+            },
+            getTime() {
+                this.timer = setInterval(() => {
+                    this.date = (new Date()).Format("yyyy-MM-dd")
+                    this.time = (new Date()).Format("hh:mm:ss")
+                }, 1000)
+            }
+        },
+        mounted() {
+            this.getTime()
+            this.getData()
+        },
+        beforeDestroy() {
+            if (this.timer) {
+                clearInterval(this.timer)
+            }
+        }
+
     }
 </script>
 
@@ -114,6 +173,8 @@
         }
         .bot {
             @include flex(space-between, center);
+            height: 8rem;
+            font-size: 4rem;
             .bot-block {
                 text-align: center;
                 margin-top: 1.4rem;

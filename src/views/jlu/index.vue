@@ -26,7 +26,7 @@
                                     <el-col :span="12" class="head">姓名</el-col>
                                     <el-col :span="12" class="head">时间</el-col>
                                 </el-row>
-                                <el-row v-for="i in 5" :key="i">
+                                <el-row v-for="i in 5" :key="i" style="margin-top: 1rem;">
                                     <el-col :span="12" class="body">张三</el-col>
                                     <el-col :span="12" class="body">10：30</el-col>
                                 </el-row>
@@ -36,17 +36,24 @@
                                     <el-col :span="12" class="head">姓名</el-col>
                                     <el-col :span="12" class="head">时间</el-col>
                                 </el-row>
-                                <el-row v-for="i in 5" :key="i">
+                                <el-row v-for="i in 5" :key="i" style="margin-top: 1rem;">
                                     <el-col :span="12" class="body">张三</el-col>
                                     <el-col :span="12" class="body">10：30</el-col>
                                 </el-row>
                             </el-col>
                         </el-row>
                     </div>
-                    <div class="type4" id="b3"></div>
+                    <div class="type4 b3-contain" id="b3">
+                        <div class="b3" v-for="i in 4" :key="i">
+                            <div class="b3-left">
+                                <span class="pot"></span>年级3707最小新生：
+                            </div>
+                            <div class="b3-right">年龄15</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="mid-right-map">
-                    <!--<c2></c2>-->
+                    <c2></c2>
                 </div>
             </div>
             <div class="mid-bottom">
@@ -171,6 +178,53 @@
             }
         ]
     }
+
+    var option3 = {
+        color: ['#FFD441', '#2AC5A9', '#ED82B0', '#0081D0', '#D58AEA', '#74C3CE', '#6283C0', '#5F83B7'],
+        textStyle: {color: '#fff'},
+        tooltip: {
+            textStyle: {color: '#fff'},
+            trigger: 'axis'
+        },
+        title: {
+            textStyle: '#fff'
+        },
+        dataset: {
+            source: [
+                ['score', 'amount', 'product'],
+                [89.3, 58212, 'Matcha Latte'],
+                [57.1, 78254, 'Milk Tea'],
+                [74.4, 41032, 'Cheese Cocoa'],
+                [50.1, 12755, 'Cheese Brownie'],
+                [89.7, 20145, 'Matcha Cocoa'],
+                [68.1, 79146, 'Tea'],
+                [19.6, 91852, 'Orange Juice'],
+                [10.6, 101852, 'Lemon Juice'],
+                [32.7, 20112, 'Walnut Brownie']
+            ]
+        },
+        grid: {containLabel: true},
+        xAxis: {name: 'x轴'},
+        yAxis: {type: 'category'},
+        // visualMap: {
+        //     orient: 'horizontal',
+        //     left: 'center',
+        //     min: 10,
+        //     max: 100,
+        //     text: ['High Score', 'Low Score'],
+        // },
+        series: [
+            {
+                type: 'bar',
+                encode: {
+                    // Map the "amount" column to X axis.
+                    x: 'amount',
+                    // Map the "product" column to Y axis
+                    y: 'product'
+                }
+            }
+        ]
+    }
     //实例
     var Chart_a4;
 
@@ -189,7 +243,7 @@
         methods: {
             initA4() {
                 Chart_a4 = echarts.init(document.getElementById('a4'));
-                Chart_a4.setOption(option1);
+                Chart_a4.setOption(option3);
             },
 
             initB4() {
@@ -216,6 +270,7 @@
 
         },
         mounted() {
+
             //挂在时初始化
             this.initA4();
 

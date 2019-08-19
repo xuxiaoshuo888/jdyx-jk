@@ -5,30 +5,21 @@
                 <div class="pot"></div>
                 <span class="ts">总人数：</span>
                 <div class="sz">
-                    <span>1</span>
-                    <span>0</span>
-                    <span>8</span>
-                    <span>0</span>
+                    <span v-for="(i,index) in zrs" :key="index">{{i}}</span>
                 </div>
             </div>
             <div class="rs color2">
                 <div class="pot"></div>
                 <span class="ts">已报到：</span>
                 <div class="sz">
-                    <span>1</span>
-                    <span>0</span>
-                    <span>8</span>
-                    <span>0</span>
+                    <span v-for="(i,index) in ybd" :key="index">{{i}}</span>
                 </div>
             </div>
             <div class="rs color3">
                 <div class="pot"></div>
                 <span class="ts">未报到：</span>
                 <div class="sz">
-                    <span>1</span>
-                    <span>0</span>
-                    <span>8</span>
-                    <span>0</span>
+                    <span v-for="(i,index) in wbd" :key="index">{{i}}</span>
                 </div>
             </div>
         </div>
@@ -93,16 +84,54 @@
     export default {
         name: "a2",
         data() {
-            return {}
+            return {
+                zrs: '',
+                ybd: '',
+                wbd: '',
+                bdl: ''
+            }
         },
         methods: {
             initA2() {
                 Chart_a2 = echarts.init(document.getElementById('a2'));
                 Chart_a2.setOption(option);
+            },
+            getData() {
+                this.$axios.get('/api/bdl').then(res => {
+                    let zrs = res.data.data.zrs + '';
+                    let ybd = res.data.data.ybd + '';
+                    let wbd = res.data.data.wbd + '';
+                    this.bdl = res.data.data.bdl + '';
+                    //位数不到5位，需要对字符串开头进行补全
+                    if (zrs.length < 5) {
+                        for (let j = 0; j < (5 - zrs.length); j++) {
+                            zrs = '0' + zrs
+                        }
+                    }
+                    this.zrs = zrs;
+                    // console.log(ybd)
+                    if (ybd.length < 5) {
+
+                        for (let j = 0; j < (5 - ybd.length); j++) {
+                            console.log(ybd)
+                            ybd = '0' + ybd
+                        }
+                    }
+                    this.ybd = ybd;
+                    if (wbd.length < 5) {
+                        for (let j = 0; j < (5 - wbd.length); j++) {
+                            wbd = '0' + wbd
+                        }
+                    }
+                    this.wbd = wbd;
+                    this.ybd = ybd;
+                    this.zrs = zrs;
+                })
             }
         },
         mounted() {
             this.initA2()
+            this.getData()
 //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
                 setTimeout(() => {

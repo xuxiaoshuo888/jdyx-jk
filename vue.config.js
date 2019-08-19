@@ -1,3 +1,5 @@
+const target = 'http://192.168.0.19:8080';
+
 module.exports = {
     css: {
         loaderOptions: {
@@ -8,5 +10,18 @@ module.exports = {
                 data: `@import "@/assets/scss/index.scss";`
             }
         }
+    },
+    devServer: {
+        port: 8888,
+        disableHostCheck: true,
+        proxy: {
+            '/proxy': {
+                target: target,
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/proxy': ''
+                }
+            }
+        },
     }
 }
