@@ -135,7 +135,6 @@
     .a2 {
         padding: 2.8rem;
         @include flex(space-between, center);
-
         .a2-left {
             .rs {
                 @include flex(space-between, center);

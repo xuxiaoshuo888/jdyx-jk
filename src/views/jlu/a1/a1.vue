@@ -4,7 +4,6 @@
             <div class="top-left">
                 <div class="time">{{time}}</div>
                 <div class="date">{{date}} 周三</div>
-                <!--pm：{{data.pm25}}-->
             </div>
             <div class="top-mid"></div>
             <div class="top-right1"><img :src="data.dayIcon" alt=""></div>
@@ -12,21 +11,16 @@
                 <div class="temp">{{data.temp}}
                     <span>℃</span>
                 </div>
-                <div class="weather">多云转晴</div>
+                <div class="weather">{{data.weather}}</div>
             </div>
             <div class="top-right3">
-                <div>{{data.weather}}</div>
+                <div>{{data.wind}}</div>
                 <div>{{data.nightTemp}}~{{data.dayTemp}}℃</div>
-                <div>pm：{{data.pm25}}</div>
+                <div>pm2.5：{{data.pm25}}</div>
             </div>
         </div>
         <div class="bot">
-            {{province}} {{city}} {{area}}
-            <!--<div class="bot-block" v-for="i in 6" :key="i">-->
-            <!--<div class="wea">1</div>-->
-            <!--<div class="temp">18~28℃</div>-->
-            <!--<div class="week">周四</div>-->
-            <!--</div>-->
+            <div class="bot-text" style="text-align: center">{{province}} {{city}} {{area}}</div>
         </div>
     </div>
 </template>
@@ -56,9 +50,9 @@
         name: "a1",
         data() {
             return {
-                province: "1",
-                city: "2",
-                area: "3",
+                province: "",
+                city: "",
+                area: "",
                 time: "",
                 date: "",
                 data: {}
@@ -100,6 +94,8 @@
         .top {
             @include flex(flex-start, center);
             .top-left {
+                width: 14.5rem;
+                text-align: center;
                 .time {
                     font-size: 3.7rem;
                     font-family: Helvetica;
@@ -120,7 +116,7 @@
                 background-color: rgba(216, 216, 216, 1);
                 border-radius: 2px;
                 opacity: 0.1;
-                margin: 0 1.5rem;
+                margin: 0 0.5rem;
             }
             .top-right1 {
                 width: 8.2rem;
@@ -129,6 +125,9 @@
                 font-weight: 400;
                 color: rgba(255, 212, 65, 1);
                 line-height: 6.9rem;
+                img{
+                    width: 100%;
+                }
             }
             .top-right2 {
                 .temp {
@@ -163,7 +162,7 @@
                 }
             }
             .top-right3 {
-                margin-left: 1.3rem;
+                margin-left: 1rem;
                 font-size: 1.6rem;
                 font-family: SourceHanSansCN-Regular;
                 font-weight: 400;
@@ -172,7 +171,11 @@
             }
         }
         .bot {
-            @include flex(space-between, center);
+            /*<!--@include flex(space-between, center);-->*/
+            .bot-text{
+                margin-top: 2rem;
+                text-align: center;
+            }
             height: 8rem;
             font-size: 4rem;
             .bot-block {
