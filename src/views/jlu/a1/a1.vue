@@ -2,36 +2,89 @@
     <div id="a1" class="a1">
         <div class="top">
             <div class="top-left">
-                <div class="time">18:08:08</div>
-                <div class="date">2019/8/7 pm 周三</div>
+                <div class="time">{{time}}</div>
+                <div class="date">{{date}} 周三</div>
             </div>
             <div class="top-mid"></div>
-            <div class="top-right1">3</div>
+            <div class="top-right1"><img :src="data.dayIcon" alt=""></div>
             <div class="top-right2">
-                <div class="temp">25
+                <div class="temp">{{data.temp}}
                     <span>℃</span>
                 </div>
-                <div class="weather">多云转晴</div>
+                <div class="weather">{{data.weather}}</div>
             </div>
             <div class="top-right3">
-                <div>多云</div>
-                <div>16~28℃</div>
-                <div>吉林</div>
+                <div>{{data.wind}}</div>
+                <div>{{data.nightTemp}}~{{data.dayTemp}}℃</div>
+                <div>pm2.5：{{data.pm25}}</div>
             </div>
         </div>
         <div class="bot">
-            <div class="bot-block" v-for="i in 6" :key="i">
-                <div class="wea">1</div>
-                <div class="temp">18~28℃</div>
-                <div class="week">周四</div>
-            </div>
+            <div class="bot-text" style="text-align: center">{{province}} {{city}} {{area}}</div>
         </div>
     </div>
 </template>
 
 <script>
+    // 对Date的扩展，将 Date 转化为指定格式的String
+    // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
+    // 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
+
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
     export default {
-        name: "a1"
+        name: "a1",
+        data() {
+            return {
+                province: "",
+                city: "",
+                area: "",
+                time: "",
+                date: "",
+                data: {}
+            }
+        },
+        methods: {
+            getData() {//天气
+                this.$axios.get('/api/weather').then(res => {
+                    console.log(res.data)
+                    this.province = res.data.data.province;
+                    this.city = res.data.data.city;
+                    this.area = res.data.data.area;
+                    this.data = res.data.data.data
+                })
+            },
+            getTime() {
+                this.timer = setInterval(() => {
+                    this.date = (new Date()).Format("yyyy-MM-dd")
+                    this.time = (new Date()).Format("hh:mm:ss")
+                }, 1000)
+            }
+        },
+        mounted() {
+            this.getTime()
+            this.getData()
+        },
+        beforeDestroy() {
+            if (this.timer) {
+                clearInterval(this.timer)
+            }
+        }
+
     }
 </script>
 
@@ -41,6 +94,8 @@
         .top {
             @include flex(flex-start, center);
             .top-left {
+                width: 14.5rem;
+                text-align: center;
                 .time {
                     font-size: 3.7rem;
                     font-family: Helvetica;
@@ -61,7 +116,7 @@
                 background-color: rgba(216, 216, 216, 1);
                 border-radius: 2px;
                 opacity: 0.1;
-                margin: 0 1.5rem;
+                margin: 0 0.5rem;
             }
             .top-right1 {
                 width: 8.2rem;
@@ -70,6 +125,9 @@
                 font-weight: 400;
                 color: rgba(255, 212, 65, 1);
                 line-height: 6.9rem;
+                img{
+                    width: 100%;
+                }
             }
             .top-right2 {
                 .temp {
@@ -104,7 +162,7 @@
                 }
             }
             .top-right3 {
-                margin-left: 1.3rem;
+                margin-left: 1rem;
                 font-size: 1.6rem;
                 font-family: SourceHanSansCN-Regular;
                 font-weight: 400;
@@ -113,7 +171,13 @@
             }
         }
         .bot {
-            @include flex(space-between, center);
+            /*<!--@include flex(space-between, center);-->*/
+            .bot-text{
+                margin-top: 2rem;
+                text-align: center;
+            }
+            height: 8rem;
+            font-size: 4rem;
             .bot-block {
                 text-align: center;
                 margin-top: 1.4rem;

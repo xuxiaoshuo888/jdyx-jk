@@ -103,26 +103,26 @@ html, body {
         font-weight: bold;
         color: rgba(255, 255, 255, 1);
         line-height: 2.7rem;
+        margin-bottom: 2.2rem;
+        padding-top: 1.2rem;
+      }
+      .head {
+        font-size: 1.6rem;
+        font-family: SourceHanSansCN;
+        font-weight: 400;
+        color: rgba(255, 95, 163, 1) !important;
+        line-height: 2.4rem;
+      }
 
-        .head {
-          font-size: 1.6rem;
-          font-family: SourceHanSansCN;
-          font-weight: 400;
-          color: rgba(255, 95, 163, 1);
-          line-height: 2.4rem;
-        }
-
-        .body {
-          font-size: 1.6rem;
-          font-family: SourceHanSansCN;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 1);
-          line-height: 2.4rem;
-          margin-top: 0.6rem;
-        }
+      .body {
+        font-size: 1.6rem;
+        font-family: SourceHanSansCN;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 1);
+        line-height: 2.4rem;
+        margin-top: 0.6rem;
       }
     }
-
     .mid-right-map {
       display: inline-block;
       width: $width4;
@@ -153,4 +153,37 @@ html, body {
 .fullSize {
   width: 100%;
   height: 100%;
+}
+
+.b3-contain {
+}
+
+.b3 {
+  display: flex;
+  padding: 1.4rem;
+  font-size: 1.6rem;
+  font-family: SourceHanSansCN;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  line-height: 2rem;
+  .b3-left {
+    flex: 2;
+    @include flex(flex-start, center);
+    text-align: left;
+    .pot {
+      width: 1.2rem;
+      height: 1.2rem;
+      background-color: rgba(255, 95, 163, 1);
+      display: inline-block;
+      vertical-align: middle;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      margin-right: 2rem;
+    }
+  }
+  .b3-right {
+    flex: 1;
+    text-align: right;
+  }
 }
