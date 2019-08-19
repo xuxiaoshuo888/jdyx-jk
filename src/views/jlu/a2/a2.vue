@@ -28,56 +28,7 @@
 </template>
 
 <script>
-    var option = {
-        color: ['#FFD441', '#2AC5A9', '#ED82B0', '#0081D0', '#D58AEA', '#74C3CE', '#6283C0', '#5F83B7'],
-        tooltip: {
-            // trigger: 'item',
-            // formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        // legend: {
-        //     // orient: 'vertical',
-        //     // x: 'left',
-        //     // data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-        // },
-        graphic: {       //图形中间文字
-            type: "text",
-            left: "center",
-            top: "center",
-            style: {
-                text: "33.33%",
-                textAlign: "center",
-                fill: "#fff",
-                fontSize: 16
-            }
-        },
-        series: [
-            {
-                name: '访问来源',
-                type: 'pie',
-                radius: ['70%', '80%'],
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        show: false,
-                    }
-                },
-                labelLine: {
-                    normal: {
-                        show: false
-                    }
-                },
-                data: [
-                    {value: 335, name: '直接访问'},
-                    {value: 310, name: '邮件营销'},
-                    {value: 234, name: '联盟广告'}
-                ]
-            }
-        ]
-    };
+
 
     const echarts = require('echarts');
     let Chart_a2;
@@ -88,13 +39,63 @@
                 zrs: '',
                 ybd: '',
                 wbd: '',
-                bdl: ''
+                bdl: '',
+                option: {
+                    color: ['#FFD441', '#2AC5A9', '#ED82B0', '#0081D0', '#D58AEA', '#74C3CE', '#6283C0', '#5F83B7'],
+                    tooltip: {
+                        // trigger: 'item',
+                        // formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    },
+                    // legend: {
+                    //     // orient: 'vertical',
+                    //     // x: 'left',
+                    //     // data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+                    // },
+                    graphic: {       //图形中间文字
+                        type: "text",
+                        left: "center",
+                        top: "center",
+                        style: {
+                            text: "",
+                            textAlign: "center",
+                            fill: "#fff",
+                            fontSize: 16
+                        }
+                    },
+                    series: [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            radius: ['65%', '85%'],
+                            avoidLabelOverlap: false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    show: false,
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            data: [
+                                {value: 335, name: '直接访问'},
+                                {value: 310, name: '邮件营销'},
+                                {value: 234, name: '联盟广告'}
+                            ]
+                        }
+                    ]
+                }
             }
         },
         methods: {
             initA2() {
                 Chart_a2 = echarts.init(document.getElementById('a2'));
-                Chart_a2.setOption(option);
+                Chart_a2.setOption(this.option);
             },
             getData() {
                 this.$axios.get('/api/bdl').then(res => {
@@ -102,6 +103,8 @@
                     let ybd = res.data.data.ybd + '';
                     let wbd = res.data.data.wbd + '';
                     this.bdl = res.data.data.bdl + '';
+                    this.option.graphic.style.text = res.data.data.bdl + '';
+                    this.option
                     //位数不到5位，需要对字符串开头进行补全
                     if (zrs.length < 5) {
                         for (let j = 0; j < (5 - zrs.length); j++) {
@@ -109,11 +112,8 @@
                         }
                     }
                     this.zrs = zrs;
-                    // console.log(ybd)
                     if (ybd.length < 5) {
-
                         for (let j = 0; j < (5 - ybd.length); j++) {
-                            console.log(ybd)
                             ybd = '0' + ybd
                         }
                     }
@@ -126,13 +126,13 @@
                     this.wbd = wbd;
                     this.ybd = ybd;
                     this.zrs = zrs;
-                })
+                }).then()
             }
         },
         mounted() {
             this.initA2()
-            this.getData()
-//窗口大小改变时，图标自动适应宽高
+            this.getData()//获取数据并更新
+            //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
                 setTimeout(() => {
                     Chart_a2.resize();
