@@ -36,6 +36,7 @@
         name: "a2",
         data() {
             return {
+                count:5,
                 zrs: '',
                 ybd: '',
                 wbd: '',
@@ -99,34 +100,22 @@
             },
             getData() {
                 this.$axios.get('/api/bdl').then(res => {
-                    let zrs = res.data.data.zrs + '';
-                    let ybd = res.data.data.ybd + '';
-                    let wbd = res.data.data.wbd + '';
                     this.bdl = res.data.data.bdl + '';
                     this.option.graphic.style.text = res.data.data.bdl + '';
-                    this.option
+                    // this.option
                     //位数不到5位，需要对字符串开头进行补全
-                    if (zrs.length < 5) {
-                        for (let j = 0; j < (5 - zrs.length); j++) {
-                            zrs = '0' + zrs
-                        }
-                    }
-                    this.zrs = zrs;
-                    if (ybd.length < 5) {
-                        for (let j = 0; j < (5 - ybd.length); j++) {
-                            ybd = '0' + ybd
-                        }
-                    }
-                    this.ybd = ybd;
-                    if (wbd.length < 5) {
-                        for (let j = 0; j < (5 - wbd.length); j++) {
-                            wbd = '0' + wbd
-                        }
-                    }
-                    this.wbd = wbd;
-                    this.ybd = ybd;
-                    this.zrs = zrs;
+                    this.zrs = this.addPreZero(res.data.data.zrs);
+                    this.ybd = this.addPreZero(res.data.data.ybd);
+                    this.wbd = this.addPreZero(res.data.data.wbd);
                 }).then()
+            },
+            addPreZero(num){
+                let t = (num+'').length,
+                    s = '';
+                for(let i=0; i<this.count-t; i++){
+                    s += '0';
+                }
+                return s+num;
             }
         },
         mounted() {
