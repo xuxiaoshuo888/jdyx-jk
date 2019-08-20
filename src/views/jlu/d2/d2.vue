@@ -18,8 +18,10 @@
                     color: ['#FFD441', '#2AC5A9'],
                     textStyle: {color: '#fff'},
                     title: {
-                        text: 'Beijing AQI',
-                        textStyle: '#fff'
+                        text: '折线图',
+                        textStyle: {color: '#fff', fontSize: 18},
+                        left:10,
+                        top:10,
                     },
                     tooltip: {
                         trigger: 'axis'

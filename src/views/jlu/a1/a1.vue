@@ -6,22 +6,23 @@
                 <div class="date">{{date}} 周三</div>
             </div>
             <div class="top-mid"></div>
-            <div class="top-right1"><img :src="data.dayIcon" alt=""></div>
-            <div class="top-right2">
-                <div class="temp">{{data.temp}}
-                    <span>℃</span>
-                </div>
-                <div class="weather">{{data.weather}}</div>
+            <div class="top-right1"><img :src="data.dayIcon" alt=""><span class="weather">{{data.temp}}℃ {{data.weather}}</span>
             </div>
+            <!--<div class="top-right2">-->
+            <!--<div class="temp">{{data.temp}}-->
+            <!--<span>℃</span>-->
+            <!--</div>-->
+            <!--<div class="weather">{{data.weather}}</div>-->
+            <!--</div>-->
             <div class="top-right3">
-                <div>{{data.wind}}</div>
-                <div>{{data.nightTemp}}~{{data.dayTemp}}℃</div>
-                <div>pm2.5：{{data.pm25}}</div>
+                <div>风向风速：{{data.wind}}</div>
+                <div>相对湿度：{{data.humidity}}%</div>
+                <div>空气质量：{{pm}}</div>
             </div>
         </div>
-        <div class="bot">
-            <div class="bot-text" style="text-align: center">{{province}} {{city}} {{area}}</div>
-        </div>
+        <!--<div class="bot">-->
+        <!--<div class="bot-text" style="text-align: center">{{province}} {{city}} {{area}}</div>-->
+        <!--</div>-->
     </div>
 </template>
 
@@ -50,6 +51,7 @@
         name: "a1",
         data() {
             return {
+                pm: "",//空气质量
                 province: "",
                 city: "",
                 area: "",
@@ -65,7 +67,21 @@
                     this.province = res.data.data.province;
                     this.city = res.data.data.city;
                     this.area = res.data.data.area;
-                    this.data = res.data.data.data
+                    this.data = res.data.data.data;
+                    let pm = Number(res.data.data.data.pm25);
+                    if (pm > 0 && pm < 50) {
+                        this.pm = '优';
+                    } else if (pm > 50 && pm < 100) {
+                        this.pm = '良';
+                    } else if (pm > 100 && pm < 150) {
+                        this.pm = '轻度污染';
+                    } else if (pm > 150 && pm < 200) {
+                        this.pm = '中度污染';
+                    } else if (pm > 200 && pm < 300) {
+                        this.pm = '重度污染';
+                    } else if (pm >= 300) {
+                        this.pm = '严重污染';
+                    }
                 })
             },
             getTime() {
@@ -90,7 +106,7 @@
 
 <style scoped lang="scss">
     .a1 {
-        padding: 2.3rem 2.6rem;
+        padding: 1.3rem 2.6rem;
         .top {
             @include flex(flex-start, center);
             .top-left {
@@ -125,8 +141,18 @@
                 font-weight: 400;
                 color: rgba(255, 212, 65, 1);
                 line-height: 6.9rem;
-                img{
-                    width: 100%;
+                @include flex(space-between);
+                flex-direction: column;
+                img {
+                    width: 50%;
+                }
+                .weather {
+                    font-size: 1rem;
+                    font-family: SourceHanSansCN-Regular;
+                    font-weight: 400;
+                    color: rgba(246, 246, 247, 1);
+                    line-height: 1.5rem;
+                    text-align: center;
                 }
             }
             .top-right2 {
@@ -172,7 +198,7 @@
         }
         .bot {
             /*<!--@include flex(space-between, center);-->*/
-            .bot-text{
+            .bot-text {
                 margin-top: 2rem;
                 text-align: center;
             }

@@ -1,18 +1,15 @@
 <template>
     <!--    新生报到男女比例-->
-
-
-    <!--不用了-->
-    <div id="a3" class="fullSize"></div>
+    <div id="b3" class="fullSize"></div>
 </template>
 
 <script>
     var echarts = require('echarts');
 
-    var Chart_a3;
-    <!--不用了-->
+    var Chart_b3;
+
     export default {
-        name: "a3",
+        name: "b3",
         data() {
             return {
                 male_ybd: "",//男-已报到
@@ -24,6 +21,8 @@
                     textStyle: {color: '#fff'},
                     title: {
                         text: '已报到男女新生比例',
+                        left:10,
+                        top:10,
                         textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {
@@ -41,11 +40,22 @@
                         containLabel: true
                     },
                     xAxis: {
+                        name:'人数',
                         type: 'value',
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff',
+                            }
+                        },
                         boundaryGap: [0, 0.1]
                     },
                     yAxis: {
                         type: 'category',
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff',
+                            }
+                        },
                         data: ['男', '女']
                     },
                     series: [
@@ -59,9 +69,9 @@
             }
         },
         methods: {
-            initA3() {
-                Chart_a3 = echarts.init(document.getElementById('a3'));
-                Chart_a3.setOption(this.option);
+            initB3() {
+                Chart_b3 = echarts.init(document.getElementById('b3'));
+                Chart_b3.setOption(this.option);
             },
             getData() {
                 this.$axios.get('/api/xbbdl').then(res => {
@@ -69,7 +79,7 @@
                         this.male_zrs = res.data.data[0].zrs,//男-总人数
                         this.female_ybd = res.data.data[1].ybd,//女-已报到
                         this.femal_zrs = res.data.data[1].zrs//女-总人数
-                    Chart_a3.setOption({
+                    Chart_b3.setOption({
                         series: [
                             {
                                 data: [this.male_ybd / this.male_zrs, this.female_ybd / this.femal_zrs]
@@ -81,12 +91,12 @@
         },
         mounted() {
             // this.getData()
-            this.initA3()
+            this.initB3()
             //窗口大小改变时，图标自动适应宽高
             // window.onresize = function () {
-            //     console.log('resize a3')
+            //     console.log('resize b3')
             //     setTimeout(() => {
-            //         Chart_a3.resize();
+            //         Chart_b3.resize();
             //     }, 300)
             // }
         }

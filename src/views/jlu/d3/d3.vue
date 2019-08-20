@@ -1,5 +1,5 @@
 <template>
-    <div id="d3" class="fullSize"></div>
+    <div id="d3" class="fullSize height200"></div>
 </template>
 
 <script>
@@ -20,6 +20,8 @@
                     title: {
                         text: '各省份学生人数统计',
                         subtext: '',
+                        left:10,
+                        top:10,
                         textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {

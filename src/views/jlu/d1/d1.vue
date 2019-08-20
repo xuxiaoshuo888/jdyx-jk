@@ -21,6 +21,8 @@
                     title: {
                         text: '各学院报到情况实时统计',
                         subtext: '',
+                        left:10,
+                        top:10,
                         textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {

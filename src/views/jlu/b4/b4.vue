@@ -20,6 +20,8 @@
                     title: {
                         text: '新生人数前十的学院',
                         subtext: '',
+                        left:10,
+                        top:10,
                         textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {

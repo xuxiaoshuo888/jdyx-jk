@@ -1,21 +1,21 @@
 <template>
     <div class="contain">
         <div class="col1">
-            <div id="a1" class="type1">
+            <div id="a1" class="type1" style="height: 10.2rem;">
                 <a1></a1>
             </div>
             <div class="type1">
                 <a2></a2>
             </div>
-            <div class="type1">
-                <a3></a3>
-            </div>
-            <div class="type2">
+            <!--<div class="type1">-->
+            <!--<a3></a3>-->
+            <!--</div>-->
+            <div class="type2" style="height:65.5rem;overflow-y: scroll">
                 <a4></a4>
             </div>
         </div>
         <div class="col2">
-            <div class="type-head">吉林大学2019级自助数字化迎新展示</div>
+            <div class="type-head">{{schoolName}} {{currentYear}} 级自助数字化迎新展示</div>
             <div class="mid-contain">
                 <div class="mid-left">
                     <div id="b2" class="type3" style="padding-left: 15px;padding-right: 15px;box-sizing: border-box;">
@@ -24,11 +24,11 @@
                         </div>
                         <el-row :gutter="20">
                             <el-row>
-                                <el-col :span="6" class="head">学号</el-col>
-                                <el-col :span="6" class="head">姓名</el-col>
+                                <el-col :span="8" class="head">学号</el-col>
+                                <el-col :span="8" class="head">姓名</el-col>
                                 <!--<el-col :span="8" class="head">性别</el-col>-->
-                                <el-col :span="6" class="head">学院</el-col>
-                                <el-col :span="6" class="head">到校时间</el-col>
+                                <!--<el-col :span="6" class="head">学院</el-col>-->
+                                <el-col :span="8" class="head">到校时间</el-col>
                             </el-row>
                             <div v-if="b2_list.length === 0">
                                 <el-row v-for="(i,index) in b2_list" :key="index" style="margin-top: 1rem;">
@@ -45,13 +45,14 @@
                             </el-row>
                         </el-row>
                     </div>
-                    <div class="type4 b3-contain" id="b3">
-                        <div class="b3" v-for="i in 4" :key="i">
-                            <div class="b3-left">
-                                <span class="pot"></span>年级3707最小新生：
-                            </div>
-                            <div class="b3-right">年龄15</div>
-                        </div>
+                    <div class="type4 b3-contain">
+                        <b3></b3>
+                        <!--<div class="b3" v-for="i in 4" :key="i">-->
+                        <!--<div class="b3-left">-->
+                        <!--<span class="pot"></span>年级3707最小新生：-->
+                        <!--</div>-->
+                        <!--<div class="b3-right">年龄15</div>-->
+                        <!--</div>-->
                     </div>
                 </div>
                 <div class="mid-right-map">
@@ -74,7 +75,7 @@
             <div class="type2">
                 <d2></d2>
             </div>
-            <div class="type2">
+            <div class="type2" style="overflow-y: scroll">
                 <d3></d3>
             </div>
         </div>
@@ -85,17 +86,13 @@
     /*业务组件*/
     import a1 from './a1/a1.vue'
     import a2 from './a2/a2.vue'
-    import a3 from './a3/a3.vue'
     import a4 from './a4/a4.vue'
-
+    import b3 from './b3/b3.vue'
     import b4 from './b4/b4.vue'
-    import c3 from './c3/c3.vue'
-
-
     import c2 from './c2/c2.vue'
+    import c3 from './c3/c3.vue'
     import d1 from './d1/d1.vue'
     import d2 from './d2/d2.vue'
-
     import d3 from './d3/d3.vue'
     /*图表类组件*/
 
@@ -248,14 +245,22 @@
     //实例
     export default {
         name: "index",
-        components: {a1, a2, a3, a4, b4, c3, c2, d1, d2, d3},
+        components: {a1, a2, a4, b3, b4, c3, c2, d1, d2, d3},
         data() {
             return {
                 b2_list: [],
-                a4_data: option3
+                a4_data: option3,
+                schoolName: "",
+                currentYear: ""
             }
         },
         methods: {
+            getName() {
+                this.$axios.get('/api/init').then(res => {
+                    this.schoolName = res.data.schoolName;
+                    this.currentYear = res.data.currentYear;
+                })
+            },
             getData_b2() {
                 this.$axios.get('/api/newstudent').then(res => {
                     console.log(res)
@@ -264,7 +269,8 @@
             }
         },
         mounted() {
-            this.getData_b2()
+            this.getName();
+            this.getData_b2();
             //挂在时初始化
             //窗口大小改变时，图标自动适应宽高
         }

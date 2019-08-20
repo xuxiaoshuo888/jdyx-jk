@@ -20,6 +20,8 @@
                     title: {
                         text: '少数名族占比前十学院',
                         subtext: '',
+                        left:10,
+                        top:10,
                         textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {
