@@ -36,36 +36,41 @@
         name: "a2",
         data() {
             return {
-                count:5,
+                count: 5,
                 zrs: '00000',
                 ybd: '00000',
                 wbd: '00000',
                 bdl: '0',
                 option: {
-                    color: ['#FFD441', '#2AC5A9', '#ED82B0', '#0081D0', '#D58AEA', '#74C3CE', '#6283C0', '#5F83B7'],
-                    tooltip: {
-                        // trigger: 'item',
-                        // formatter: "{a} <br/>{b}: {c} ({d}%)"
-                    },
-                    // legend: {
-                    //     // orient: 'vertical',
-                    //     // x: 'left',
-                    //     // data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-                    // },
+                    color: [
+                        '#2ac5a9',
+                        '#ed82b0',
+                        '#2AC5A9',
+                        '#FFD441',
+                        '#ED82B0',
+                        '#0081D0',
+                        '#D58AEA',
+                        '#74C3CE',
+                        '#6283C0',
+                        '#5F83B7'],
                     graphic: {       //图形中间文字
                         type: "text",
                         left: "center",
                         top: "center",
                         style: {
-                            text: "10%",
+                            text: "报到率",
                             textAlign: "center",
                             fill: "#fff",
                             fontSize: 16
                         }
                     },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{b} <br/> {c}人 ({d}%)"
+                    },
                     series: [
                         {
-                            name: '访问来源',
+                            name: '数据',
                             type: 'pie',
                             radius: ['65%', '85%'],
                             avoidLabelOverlap: false,
@@ -84,9 +89,9 @@
                                 }
                             },
                             data: [
-                                {value: 335, name: '直接访问'},
-                                {value: 310, name: '邮件营销'},
-                                {value: 234, name: '联盟广告'}
+                                // {value: 335, name: '直接访问'},
+                                // {value: 310, name: '邮件营销'},
+                                // {value: 234, name: '联盟广告'}
                             ]
                         }
                     ]
@@ -102,20 +107,34 @@
                 this.$axios.get('/api/bdl').then(res => {
                     this.bdl = res.data.data.bdl + '';
                     this.option.graphic.style.text = res.data.data.bdl + '';
-                    // this.option
                     //位数不到5位，需要对字符串开头进行补全
                     this.zrs = this.addPreZero(res.data.data.zrs);
                     this.ybd = this.addPreZero(res.data.data.ybd);
                     this.wbd = this.addPreZero(res.data.data.wbd);
-                }).then()
+                    Chart_a2.setOption({
+                        graphic: {//图形中间文字
+                            style: {
+                                text: `报到率${res.data.data.bdl}%`,
+                            }
+                        },
+                        series: [
+                            {
+                                data: [
+                                    {value: res.data.data.ybd, name: '已报到'},
+                                    {value: res.data.data.wbd, name: '未报到'}
+                                ]
+                            }
+                        ]
+                    })
+                })
             },
-            addPreZero(num){
-                let t = (num+'').length,
+            addPreZero(num) {
+                let t = (num + '').length,
                     s = '';
-                for(let i=0; i<this.count-t; i++){
+                for (let i = 0; i < this.count - t; i++) {
                     s += '0';
                 }
-                return s+num;
+                return s + num;
             }
         },
         mounted() {

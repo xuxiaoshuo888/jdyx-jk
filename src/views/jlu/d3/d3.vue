@@ -11,19 +11,23 @@
         name: "d3",
         data() {
             return {
+                list: [],
+                list_name: ['机械与电气工程学院', '水利与生态工程学院', '信息工程学院', '土木与建筑工程学院', '经济贸易学院', '人文与艺术学院'],//学院名集合
+                list_value: [666, 555, 777, 888, 999, 444],//对应值集合
                 option: {
                     color: ['#2AC5A9', '#6283C0'],
                     textStyle: {color: '#fff'},
                     title: {
                         text: '各省份学生人数统计',
                         subtext: '',
-                        textStyle: '#fff'
+                        textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
                             type: 'shadow'
                         },
+                        formatter: '已报到{c}人',
                         textStyle: {color: '#fff'}
                     },
                     grid: {
@@ -38,13 +42,13 @@
                     },
                     yAxis: {
                         type: 'category',
-                        data: ['湖北', '湖南', '广东', '广西', '云南', '贵州']
+                        data: []
                     },
                     series: [
                         {
                             type: 'bar',
                             barWidth: '10',
-                            data: [666, 555, 777, 888, 999, 444]
+                            data: []
                         }
                     ]
                 }
@@ -55,8 +59,30 @@
                 Chart_d3 = echarts.init(document.getElementById('d3'));
                 Chart_d3.setOption(this.option);
             },
+            getData() {
+                this.$axios.get('/api/syd').then(res => {
+                    this.list = res.data.data
+                    let list_name = []
+                    let list_value = []
+                    for (let x = 0; x < this.list.length; x++) {
+                        list_name.push(this.list[x].syd)
+                        list_value.push(this.list[x].rs)
+                    }
+                    Chart_d3.setOption({
+                        yAxis: {
+                            data: list_name
+                        },
+                        series: [
+                            {
+                                data: list_value
+                            }
+                        ]
+                    })
+                })
+            }
         },
         mounted() {
+            this.getData()
             this.initD3()
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {

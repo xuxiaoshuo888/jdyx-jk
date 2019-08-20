@@ -20,13 +20,14 @@
                     title: {
                         text: '新生人数前十的学院',
                         subtext: '',
-                        textStyle: '#fff'
+                        textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
                             type: 'shadow'
                         },
+                        formatter:'新生{c}人',
                         textStyle: {color: '#fff'}
                     },
                     grid: {
@@ -41,13 +42,13 @@
                     },
                     yAxis: {
                         type: 'category',
-                        data: ['机械与电气工程学院', '水利与生态工程学院', '信息工程学院', '土木与建筑工程学院', '经济贸易学院', '人文与艺术学院']
+                        data: []
                     },
                     series: [
                         {
                             type: 'bar',
                             barWidth: '10',
-                            data: [666, 555, 777, 888, 999, 444]
+                            data: []
                         }
                     ]
                 }
@@ -56,28 +57,36 @@
         methods: {
             initB4() {
                 Chart_b4 = echarts.init(document.getElementById('b4'));
-                console.log(this.option)
                 Chart_b4.setOption(this.option);
             },
             getData() {
                 this.$axios.get('/api/xy').then(res => {
-                    this.list = res.data.data.data
+                    this.list = res.data.data
                     let list_name = []
                     let list_value = []
                     for (let x = 0; x < this.list.length; x++) {
                         list_name.push(this.list[x].deptname)
                         list_value.push(this.list[x].rs)
                     }
-                }).then(
-                    //数据更新后
-                    Chart_b4.setOption(this.option)
-                )
+                    console.log(list_name)
+                    console.log(list_value)
+                    Chart_b4.setOption({
+                        yAxis: {
+                            data: list_name
+                        },
+                        series: [
+                            {
+                                data: list_value
+                            }
+                        ]
+                    })
+                })
 
             }
         },
         mounted() {
-            // this.getData()
             this.initB4()
+            this.getData()
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
                 console.log('resize a3')

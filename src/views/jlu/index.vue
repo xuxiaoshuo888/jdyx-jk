@@ -39,7 +39,10 @@
                                     <el-col :span="6" class="body">{{i.czrq}}</el-col>
                                 </el-row>
                             </div>
-                            <el-row v-else>暂无数据</el-row>
+                            <el-row v-else
+                                    style="width: 100%;height: 50%;text-align: center;font-size: 2rem;padding-top: 5rem;">
+                                暂无数据
+                            </el-row>
                         </el-row>
                     </div>
                     <div class="type4 b3-contain" id="b3">
@@ -253,11 +256,6 @@
             }
         },
         methods: {
-            initD2() {
-                Chart_d2 = echarts.init(document.getElementById('d2'));
-                Chart_d2.setOption(option2);
-            },
-
             getData_b2() {
                 this.$axios.get('/api/newstudent').then(res => {
                     console.log(res)
@@ -268,13 +266,7 @@
         mounted() {
             this.getData_b2()
             //挂在时初始化
-            this.initD2();
             //窗口大小改变时，图标自动适应宽高
-            window.onresize = function () {
-                setTimeout(() => {
-                    Chart_d2.resize();
-                }, 300)
-            }
         }
     }
 </script>

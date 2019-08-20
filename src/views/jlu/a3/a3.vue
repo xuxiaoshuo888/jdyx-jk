@@ -1,5 +1,5 @@
 <template>
-<!--    新生报到男女比例-->
+    <!--    新生报到男女比例-->
     <div id="a3" class="fullSize"></div>
 </template>
 
@@ -20,15 +20,15 @@
                     color: ['#FFD441', '#2AC5A9'],
                     textStyle: {color: '#fff'},
                     title: {
-                        text: '新生男女比例',
-                        subtext: '数据来自**',
-                        textStyle: '#fff'
+                        text: '已报到男女新生比例',
+                        textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
                             type: 'shadow'
                         },
+                        formatter: "{b}<br/>已报到:  {c}%",
                         textStyle: {color: '#fff'}
                     },
                     grid: {
@@ -49,7 +49,7 @@
                         {
                             type: 'bar',
                             barWidth: '10',
-                            data: [55, 45]
+                            data: [0, 0]
                         }
                     ]
                 }
@@ -66,6 +66,13 @@
                         this.male_zrs = res.data.data[0].zrs,//男-总人数
                         this.female_ybd = res.data.data[1].ybd,//女-已报到
                         this.femal_zrs = res.data.data[1].zrs//女-总人数
+                    Chart_a3.setOption({
+                        series: [
+                            {
+                                data: [this.male_ybd / this.male_zrs, this.female_ybd / this.femal_zrs]
+                            }
+                        ]
+                    })
                 })
             }
         },

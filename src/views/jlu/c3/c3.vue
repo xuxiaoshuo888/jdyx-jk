@@ -20,13 +20,14 @@
                     title: {
                         text: '少数名族占比前十学院',
                         subtext: '',
-                        textStyle: '#fff'
+                        textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
                             type: 'shadow'
                         },
+                        formatter: '少数名族占比{c}%',
                         textStyle: {color: '#fff'}
                     },
                     grid: {
@@ -41,13 +42,13 @@
                     },
                     yAxis: {
                         type: 'category',
-                        data: ['机械与电气工程学院', '水利与生态工程学院', '信息工程学院', '土木与建筑工程学院', '经济贸易学院', '人文与艺术学院']
+                        data: []
                     },
                     series: [
                         {
                             type: 'bar',
                             barWidth: '10',
-                            data: [666, 555, 777, 888, 999, 444]
+                            data: []
                         }
                     ]
                 }
@@ -61,22 +62,29 @@
             },
             getData() {
                 this.$axios.get('/api/xyssmz').then(res => {
-                    this.list = res.data.data.data
+                    this.list = res.data.data
                     let list_name = []
                     let list_value = []
                     for (let x = 0; x < this.list.length; x++) {
                         list_name.push(this.list[x].deptname)
-                        list_value.push(this.list[x].rs)
+                        list_value.push(this.list[x].bl)
                     }
-                }).then(
-                    //数据更新后
-                    Chart_c3.setOption(this.option)
-                )
+                    Chart_c3.setOption({
+                        yAxis: {
+                            data: list_name
+                        },
+                        series: [
+                            {
+                                data: list_value
+                            }
+                        ]
+                    })
+                })
 
             }
         },
         mounted() {
-            // this.getData()
+            this.getData()
             this.initC3()
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
