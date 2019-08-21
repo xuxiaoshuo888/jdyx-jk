@@ -13,8 +13,8 @@
         data() {
             return {
                 list: [],
-                list_name: ['机械与电气工程学院', '水利与生态工程学院', '信息工程学院', '土木与建筑工程学院', '经济贸易学院', '人文与艺术学院'],//学院名集合
-                list_value: [666, 555, 777, 888, 999, 444],//对应值集合
+                list_name: [],//学院名集合
+                list_value: [],//对应值集合
                 option: {
                     color: ['#6283C0', '#5F83B7'],
                     textStyle: {color: '#fff'},
@@ -25,13 +25,33 @@
                         top:10,
                         textStyle: {color: '#fff', fontSize: 18}
                     },
-                    tooltip: {
+                    tooltip : {
                         trigger: 'axis',
-                        axisPointer: {
-                            type: 'shadow'
+                        axisPointer : {
+                            type : 'shadow'
                         },
-                        formatter: '已报到{c}人',
-                        textStyle: {color: '#fff'}
+                        confine:true,
+                        formatter : function(params) {
+                            var zrs = 0;
+                            for(var i=0; i<params.length;i++){
+                                zrs += params[i].value;
+                            }
+                            var showItem = '';
+                            for(var m=0; m<params.length;m++){
+                                var item = params[m];
+                                var percent = ((item.value / zrs) * 100).toFixed(2);
+                                var dotColor = '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + item.color + '"></span>';
+                                showItem += (dotColor + item.seriesName + "：" + item.value + ' （' + percent + '%' + '）' + '</br>')
+                            }
+                            return params[0].name+'<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;"></span>总人数：'+zrs+'<br>'+showItem;
+                        }
+                    },
+                    legend: {
+                        data: ['已报到','未报到'],
+                        right: '20px',
+                        textStyle: {
+                            color: '#fff'
+                        }
                     },
                     grid: {
                         left: '3%',
@@ -65,8 +85,25 @@
                     },
                     series: [
                         {
+                            name: '已报到',
                             type: 'bar',
+                            stack: '总量',
                             barWidth: '80%',
+                            label: {
+                                show: true
+                            },
+                            itemStyle:{color:'#00A2DD'},
+                            data: []
+                        },
+                        {
+                            name: '未报到',
+                            type: 'bar',
+                            stack: '总量',
+                            barWidth: '80%',
+                            label: {
+                                show: true
+                            },
+                            itemStyle:{color:'#F03DAB'},
                             data: []
                         }
                     ]
@@ -83,10 +120,12 @@
                 this.$axios.get('/api/xybdl').then(res => {
                     this.list = res.data.data
                     let list_name = []
-                    let list_value = []
+                    let list_ybd = []
+                    let list_wbd = []
                     for (let x = 0; x < this.list.length; x++) {
                         list_name.push(this.list[x].deptname)
-                        list_value.push(this.list[x].ybd)
+                        list_ybd.push(this.list[x].ybd)
+                        list_wbd.push(this.list[x].wbd)
                     }
                     Chart_d1.setOption({
                         yAxis: {
@@ -94,7 +133,9 @@
                         },
                         series: [
                             {
-                                data: list_value
+                                data: list_ybd
+                            },{
+                                data:list_wbd
                             }
                         ]
                     })
