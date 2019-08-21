@@ -12,16 +12,17 @@
         data() {
             return {
                 list: [],
-                list_name: ['机械与电气工程学院', '水利与生态工程学院', '信息工程学院', '土木与建筑工程学院', '经济贸易学院', '人文与艺术学院'],//学院名集合
-                list_value: [666, 555, 777, 888, 999, 444],//对应值集合
+                list_name: [],//学院名集合
+                list_value: [],//对应值集合
+                update: "",
                 option: {
                     color: ['#ED82B0', '#D58AEA'],
                     textStyle: {color: '#fff'},
                     title: {
                         text: '少数名族占比前十学院',
                         subtext: '',
-                        left:10,
-                        top:10,
+                        left: 10,
+                        top: 10,
                         textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {
@@ -40,9 +41,9 @@
                     },
                     xAxis: {
                         type: 'value',
-                        axisLine:{
-                            lineStyle:{
-                                color:'#fff',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff',
                             }
                         },
                         splitLine: {
@@ -55,9 +56,9 @@
                     },
                     yAxis: {
                         type: 'category',
-                        axisLine:{
-                            lineStyle:{
-                                color:'#fff',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff',
                             }
                         },
 
@@ -76,7 +77,6 @@
         methods: {
             initC3() {
                 Chart_c3 = echarts.init(document.getElementById('c3'));
-                // console.log(this.option)
                 Chart_c3.setOption(this.option);
             },
             getData() {
@@ -105,12 +105,20 @@
         mounted() {
             this.getData()
             this.initC3()
+            this.update = setInterval(() => {
+                this.getData()
+            }, 10000)
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
                 // console.log('resize c3')
                 setTimeout(() => {
                     Chart_c3.resize();
                 }, 300)
+            }
+        },
+        beforeDestroy() {
+            if (this.update) {
+                clearInterval(this.update)
             }
         }
     }

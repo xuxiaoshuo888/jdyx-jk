@@ -101,6 +101,7 @@
                 schoolName: "",
                 currentYear: "",
                 intervalTime: 5000,//右侧轮播图轮播间隔
+                update: "",
             }
         },
         methods: {
@@ -120,6 +121,15 @@
         mounted() {
             this.getName();
             this.getData_b2();
+            //间隔更新数据
+            this.update = setInterval(() => {
+                this.getData()
+            }, 10000)
+        },
+        beforeDestroy() {
+            if (this.update) {
+                clearInterval(this.update)
+            }
         }
     }
 </script>

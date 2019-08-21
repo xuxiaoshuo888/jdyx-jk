@@ -55,7 +55,7 @@
                         }
                     },
                     dataZoom: [{
-                        startValue: '2019-08-09 10'
+                        startValue: ''
                     }, {
                         type: 'inside'
                     }],
@@ -65,6 +65,9 @@
                         data: [''],
                         markLine: {
                             silent: true,
+                            lineStyle:{
+                                symbol:'none'
+                            },
                             data: [{
                                 yAxis: 50
                             }, {
