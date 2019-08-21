@@ -16,7 +16,7 @@
                 male_zrs: "",//男-总人数
                 female_ybd: "",//女-已报到
                 femal_zrs: "",//女-总人数
-                update:"",
+                update: "",
                 option: {
                     color: ['#FFD441', '#2AC5A9'],
                     textStyle: {color: '#fff'},
@@ -100,9 +100,6 @@
         mounted() {
             this.getData()
             this.initB3()
-            this.update = setInterval(() => {
-                this.getData()
-            },  10000)
             //窗口大小改变时，图标自动适应宽高
             // window.onresize = function () {
             //     console.log('resize b3')
@@ -110,11 +107,6 @@
             //         Chart_b3.resize();
             //     }, 300)
             // }
-        },
-        beforeDestroy() {
-            if (this.update) {
-                clearInterval(this.update)
-            }
         }
     }
 </script>

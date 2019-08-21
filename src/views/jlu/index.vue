@@ -19,11 +19,11 @@
             <div class="mid-contain">
                 <div class="mid-left">
                     <div id="b2" class="type3"
-                         style="height: 53.8rem; padding-left: 15px;padding-right: 15px;box-sizing: border-box;">
+                         style="height: 53.8rem; padding-left: 15px;padding-right: 15px;box-sizing: border-box;overflow: hidden;">
                         <div class="title">
                             最新报到的学生
                         </div>
-                        <el-row :gutter="20">
+                        <el-row :gutter="10">
                             <el-row>
                                 <el-col :span="8" class="head">学号</el-col>
                                 <el-col :span="8" class="head">姓名</el-col>
@@ -31,13 +31,14 @@
                                 <!--<el-col :span="6" class="head">学院</el-col>-->
                                 <el-col :span="8" class="head">到校时间</el-col>
                             </el-row>
-                            <div v-if="b2_list.length === 0">
-                                <el-row v-for="(i,index) in b2_list" :key="index" style="margin-top: 1rem;">
-                                    <el-col :span="6" class="body">{{i.xh}}</el-col>
-                                    <el-col :span="6" class="body">{{i.xm}}</el-col>
+                            <div v-if="b2_list.length > 0">
+                                <el-row v-for="(i,index) in b2_list" :key="index"
+                                        style="margin-top: 1rem;padding: 0 15px;">
+                                    <el-col :span="8" class="body">{{i.xh}}</el-col>
+                                    <el-col :span="8" class="body">{{i.xm}}</el-col>
                                     <!--<el-col :span="8" class="body">{{i.xb}}</el-col>-->
-                                    <el-col :span="6" class="body">{{i.xy}}</el-col>
-                                    <el-col :span="6" class="body">{{i.czrq}}</el-col>
+                                    <!--<el-col :span="6" class="body">{{i.xy}}</el-col>-->
+                                    <el-col :span="8" class="body">{{(i.czrq).substr(5)}}</el-col>
                                 </el-row>
                             </div>
                             <el-row v-else
@@ -97,7 +98,7 @@
         components: {a1, a2, a4, b3, b4, c3, c2, d1, d2, d3},
         data() {
             return {
-                b2_list: [{xm: '张三', xh: '123123123', xy: '工学院', czrq: '20180808'}],
+                b2_list: [],
                 schoolName: "",
                 currentYear: "",
                 intervalTime: 5000,//右侧轮播图轮播间隔
@@ -113,8 +114,8 @@
             },
             getData_b2() {//最新报到的学生信息
                 this.$axios.get('/api/newstudent').then(res => {
-                    // console.log(res)
-                    this.b2_list = res.data
+                    console.log(res.data.data)
+                    this.b2_list = res.data.data
                 })
             }
         },
@@ -123,7 +124,7 @@
             this.getData_b2();
             //间隔更新数据
             this.update = setInterval(() => {
-                this.getData()
+                this.getData_b2()
             }, 10000)
         },
         beforeDestroy() {

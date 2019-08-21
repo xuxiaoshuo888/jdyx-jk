@@ -65,8 +65,8 @@
                         data: [''],
                         markLine: {
                             silent: true,
-                            lineStyle:{
-                                symbol:'none'
+                            lineStyle: {
+                                symbol: 'none'
                             },
                             data: [{
                                 yAxis: 50
@@ -115,7 +115,7 @@
             //间隔更新数据
             this.update = setInterval(() => {
                 this.getData()
-            }, 10000)
+            }, 1000 * 60 * 60)
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
                 console.log('resize d2')
