@@ -64,7 +64,7 @@
         methods: {
             getData() {//天气
                 this.$axios.get('/api/weather').then(res => {
-                    console.log(res.data)
+                    // console.log(res.data)
                     this.province = res.data.data.province;
                     this.city = res.data.data.city;
                     this.area = res.data.data.area;

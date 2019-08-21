@@ -12,8 +12,8 @@
         data() {
             return {
                 list: [],
-                list_name: ['机械与电气工程学院', '水利与生态工程学院', '信息工程学院', '土木与建筑工程学院', '经济贸易学院', '人文与艺术学院'],//学院名集合
-                list_value: [666, 555, 777, 888, 999, 444],//对应值集合
+                list_name: [],//学院名集合
+                list_value: [],//对应值集合
                 option: {
                     color: ['#74C3CE', '#0081D0'],
                     textStyle: {color: '#fff'},
@@ -45,6 +45,12 @@
                                 color:'#fff',
                             }
                         },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: 'rgba(255,255,255,0.2)'
+                            }
+                        },
                         boundaryGap: [0, 0.1]
                     },
                     yAxis: {
@@ -59,7 +65,7 @@
                     series: [
                         {
                             type: 'bar',
-                            barWidth: '10',
+                            barWidth: '80%',
                             data: []
                         }
                     ]
@@ -77,11 +83,12 @@
                     let list_name = []
                     let list_value = []
                     for (let x = 0; x < this.list.length; x++) {
-                        list_name.push(this.list[x].deptname)
-                        list_value.push(this.list[x].rs)
+                        list_name.unshift(this.list[x].deptname)
+                        list_value.unshift(this.list[x].rs)
                     }
-                    console.log(list_name)
-                    console.log(list_value)
+                    // console.log(list_name)
+                    // console.log(list_value)
+                    // console.log(this.list)
                     Chart_b4.setOption({
                         yAxis: {
                             data: list_name

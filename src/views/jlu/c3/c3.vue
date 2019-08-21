@@ -45,6 +45,12 @@
                                 color:'#fff',
                             }
                         },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: 'rgba(255,255,255,0.2)'
+                            }
+                        },
                         boundaryGap: [0, 0.1]
                     },
                     yAxis: {
@@ -54,12 +60,13 @@
                                 color:'#fff',
                             }
                         },
+
                         data: []
                     },
                     series: [
                         {
                             type: 'bar',
-                            barWidth: '10',
+                            barWidth: '80%',
                             data: []
                         }
                     ]
@@ -69,7 +76,7 @@
         methods: {
             initC3() {
                 Chart_c3 = echarts.init(document.getElementById('c3'));
-                console.log(this.option)
+                // console.log(this.option)
                 Chart_c3.setOption(this.option);
             },
             getData() {
@@ -78,8 +85,8 @@
                     let list_name = []
                     let list_value = []
                     for (let x = 0; x < this.list.length; x++) {
-                        list_name.push(this.list[x].deptname)
-                        list_value.push(this.list[x].bl)
+                        list_name.unshift(this.list[x].deptname)
+                        list_value.unshift(this.list[x].bl)
                     }
                     Chart_c3.setOption({
                         yAxis: {
@@ -100,7 +107,7 @@
             this.initC3()
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
-                console.log('resize c3')
+                // console.log('resize c3')
                 setTimeout(() => {
                     Chart_c3.resize();
                 }, 300)

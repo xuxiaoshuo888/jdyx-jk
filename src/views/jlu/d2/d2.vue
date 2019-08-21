@@ -38,30 +38,29 @@
                     },
                     xAxis: {
                         data: [],
-                        axisLine:{
-                            lineStyle:{
-                                color:'#fff',
-                            }
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff',
+                            },
                         },
                     },
                     yAxis: {
-                        axisLine:{
-                            lineStyle:{
-                                color:'#fff',
-                            }
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff',
+                            },
                         },
-                        // splitLine: {
-                        //     show: false
-                        // }
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: 'rgba(255,255,255,0.2)'
+                            }
+                        }
                     },
                     toolbox: {
                         left: 'center',
                         feature: {
-                            // dataZoom: {
-                            //     yAxisIndex: 'none'
-                            // },
-                            restore: {},
-                            // saveAsImage: {}
+                            // restore: {},
                         }
                     },
                     dataZoom: [{
@@ -118,8 +117,8 @@
             }
         },
         mounted() {
-            this.getData()
             this.initD2()
+            this.getData()
             //间隔更新数据
             this.update_hourbdl = setInterval(() => {
                 this.getData()

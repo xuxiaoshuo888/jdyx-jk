@@ -21,8 +21,8 @@
                     textStyle: {color: '#fff'},
                     title: {
                         text: '已报到男女新生比例',
-                        left:10,
-                        top:10,
+                        left: 10,
+                        top: 10,
                         textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {
@@ -40,22 +40,29 @@
                         containLabel: true
                     },
                     xAxis: {
-                        name:'人数',
+                        name: '人数',
                         type: 'value',
-                        axisLine:{
-                            lineStyle:{
-                                color:'#fff',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff',
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: 'rgba(255,255,255,0.2)'
                             }
                         },
                         boundaryGap: [0, 0.1]
                     },
                     yAxis: {
                         type: 'category',
-                        axisLine:{
-                            lineStyle:{
-                                color:'#fff',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff',
                             }
                         },
+                        inverse: true,
                         data: ['男', '女']
                     },
                     series: [
@@ -65,7 +72,7 @@
                             data: [0, 0]
                         }
                     ]
-                }
+                },
             }
         },
         methods: {

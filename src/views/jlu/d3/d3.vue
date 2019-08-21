@@ -45,6 +45,12 @@
                                 color: '#fff',
                             }
                         },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: 'rgba(255,255,255,0.2)'
+                            }
+                        },
                         boundaryGap: [0, 0.1]
                     },
                     yAxis: {
@@ -59,7 +65,7 @@
                     series: [
                         {
                             type: 'bar',
-                            barWidth: '10',
+                            barWidth: '80%',
                             data: []
                         }
                     ]
@@ -77,8 +83,8 @@
                     let list_name = []
                     let list_value = []
                     for (let x = 0; x < this.list.length; x++) {
-                        list_name.push(this.list[x].syd)
-                        list_value.push(this.list[x].rs)
+                        list_name.unshift(this.list[x].syd)
+                        list_value.unshift(this.list[x].rs)
                     }
                     Chart_d3.setOption({
                         yAxis: {

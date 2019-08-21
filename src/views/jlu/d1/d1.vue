@@ -46,6 +46,12 @@
                                 color:'#fff',
                             }
                         },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: 'rgba(255,255,255,0.2)'
+                            }
+                        },
                         boundaryGap: [0, 0.1]
                     },
                     yAxis: {
@@ -60,7 +66,7 @@
                     series: [
                         {
                             type: 'bar',
-                            barWidth: '10',
+                            barWidth: '80%',
                             data: []
                         }
                     ]
@@ -70,7 +76,7 @@
         methods: {
             initD1() {
                 Chart_d1 = echarts.init(document.getElementById('d1'));
-                console.log(this.option)
+                // console.log(this.option)
                 Chart_d1.setOption(this.option);
             },
             getData() {
@@ -100,7 +106,7 @@
             this.initD1()
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
-                console.log('resize d1')
+                // console.log('resize d1')
                 setTimeout(() => {
                     Chart_d1.resize();
                 }, 300)
