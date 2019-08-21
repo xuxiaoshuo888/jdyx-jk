@@ -29,7 +29,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: '新生{c}人',
+                        formatter: '{b}：{c}人',
                         textStyle: {color: '#fff'}
                     },
                     grid: {

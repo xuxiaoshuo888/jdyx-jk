@@ -12,8 +12,8 @@
         data() {
             return {
                 list: [],
-                list_name: ['机械与电气工程学院', '水利与生态工程学院', '信息工程学院', '土木与建筑工程学院', '经济贸易学院', '人文与艺术学院'],//学院名集合
-                list_value: [666, 555, 777, 888, 999, 444],//对应值集合
+                list_name: [],//学院名集合
+                list_value: [],//对应值集合
                 option: {
                     color: ['#2AC5A9', '#6283C0'],
                     textStyle: {color: '#fff'},
@@ -29,7 +29,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: '已报到{c}人',
+                        formatter: '{b}：{c}人',
                         textStyle: {color: '#fff'}
                     },
                     grid: {

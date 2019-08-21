@@ -15,24 +15,43 @@
                 list: [],
                 list_name: [],//学院名集合
                 list_value: [],//对应值集合
-                update: "",
                 option: {
                     color: ['#6283C0', '#5F83B7'],
                     textStyle: {color: '#fff'},
                     title: {
                         text: '各学院报到情况实时统计',
                         subtext: '',
-                        left: 10,
-                        top: 10,
+                        left:10,
+                        top:10,
                         textStyle: {color: '#fff', fontSize: 18}
                     },
-                    tooltip: {
+                    tooltip : {
                         trigger: 'axis',
-                        axisPointer: {
-                            type: 'shadow'
+                        axisPointer : {
+                            type : 'shadow'
                         },
-                        formatter: '已报到{c}人',
-                        textStyle: {color: '#fff'}
+                        confine:true,
+                        formatter : function(params) {
+                            var zrs = 0;
+                            for(var i=0; i<params.length;i++){
+                                zrs += params[i].value;
+                            }
+                            var showItem = '';
+                            for(var m=0; m<params.length;m++){
+                                var item = params[m];
+                                var percent = ((item.value / zrs) * 100).toFixed(2);
+                                var dotColor = '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + item.color + '"></span>';
+                                showItem += (dotColor + item.seriesName + "：" + item.value + ' （' + percent + '%' + '）' + '</br>')
+                            }
+                            return params[0].name+'<br><span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;"></span>总人数：'+zrs+'<br>'+showItem;
+                        }
+                    },
+                    legend: {
+                        data: ['已报到','未报到'],
+                        right: '20px',
+                        textStyle: {
+                            color: '#fff'
+                        }
                     },
                     grid: {
                         left: '3%',
@@ -42,9 +61,9 @@
                     },
                     xAxis: {
                         type: 'value',
-                        axisLine: {
-                            lineStyle: {
-                                color: '#fff',
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff',
                             }
                         },
                         splitLine: {
@@ -57,17 +76,34 @@
                     },
                     yAxis: {
                         type: 'category',
-                        axisLine: {
-                            lineStyle: {
-                                color: '#fff',
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff',
                             }
                         },
                         data: []
                     },
                     series: [
                         {
+                            name: '已报到',
                             type: 'bar',
+                            stack: '总量',
                             barWidth: '80%',
+                            label: {
+                                show: true
+                            },
+                            itemStyle:{color:'#00A2DD'},
+                            data: []
+                        },
+                        {
+                            name: '未报到',
+                            type: 'bar',
+                            stack: '总量',
+                            barWidth: '80%',
+                            label: {
+                                show: true
+                            },
+                            itemStyle:{color:'#F03DAB'},
                             data: []
                         }
                     ]
