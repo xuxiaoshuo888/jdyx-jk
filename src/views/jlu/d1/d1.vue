@@ -145,12 +145,21 @@
         mounted() {
             this.getData()
             this.initD1()
+            //间隔更新数据
+            this.update = setInterval(() => {
+                this.getData()
+            }, 10000)
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
                 // console.log('resize d1')
                 setTimeout(() => {
                     Chart_d1.resize();
                 }, 300)
+            }
+        },
+        beforeDestroy() {
+            if (this.update) {
+                clearInterval(this.update)
             }
         }
     }
