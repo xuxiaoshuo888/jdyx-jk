@@ -10,7 +10,7 @@
             <div class="type1">
                 <b3></b3>
             </div>
-            <div class="type2" style="height:65.5rem;overflow-y: scroll">
+            <div class="type2" style="height:42.4rem;">
                 <d2></d2>
             </div>
         </div>
@@ -18,7 +18,8 @@
             <div class="type-head">{{schoolName}} {{currentYear}} 级自助数字化迎新展示</div>
             <div class="mid-contain">
                 <div class="mid-left">
-                    <div id="b2" class="type3" style="height: 53.8rem; padding-left: 15px;padding-right: 15px;box-sizing: border-box;">
+                    <div id="b2" class="type3"
+                         style="height: 53.8rem; padding-left: 15px;padding-right: 15px;box-sizing: border-box;">
                         <div class="title">
                             最新报到的学生
                         </div>
@@ -40,19 +41,19 @@
                                 </el-row>
                             </div>
                             <el-row v-else
-                                    style="width: 100%;height: 50%;text-align: center;font-size: 2rem;padding-top: 5rem;">
+                                    style="width: 100%;height: 50%;text-align: center;font-size: 18px;padding-top: 5rem;">
                                 暂无数据
                             </el-row>
                         </el-row>
                     </div>
                     <!--<div class="type4 b3-contain">-->
-                        <!--<b3></b3>-->
-                        <!--&lt;!&ndash;<div class="b3" v-for="i in 4" :key="i">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div class="b3-left">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<span class="pot"></span>年级3707最小新生：&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div class="b3-right">年龄15</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<b3></b3>-->
+                    <!--&lt;!&ndash;<div class="b3" v-for="i in 4" :key="i">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="b3-left">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="pot"></span>年级3707最小新生：&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="b3-right">年龄15</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
                     <!--</div>-->
                 </div>
                 <div class="mid-right-map">
@@ -69,15 +70,15 @@
             </div>
         </div>
         <div class="col3">
-            <div class="type2" style="height:102rem !important;">
-                <el-carousel height="102rem" direction="vertical" :autoplay="false">
-                    <el-carousel-item style="width: 44rem !important;height:102rem !important;">
+            <div class="type2" style="height:102.3rem !important;">
+                <el-carousel height="102rem" indicator-position="outside" autoplay interval="5000">
+                    <el-carousel-item style="">
                         <d1></d1>
                     </el-carousel-item>
-                    <el-carousel-item style="width:44rem !important;height:102rem !important;">
+                    <el-carousel-item>
                         <a4></a4>
                     </el-carousel-item>
-                    <el-carousel-item style="width: 44rem !important;height:102rem !important;">
+                    <el-carousel-item>
                         <d3></d3>
                     </el-carousel-item>
                 </el-carousel>
@@ -290,6 +291,9 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .lbt-item {
+        width: 44rem !important;
+        height: 102rem !important;
+    }
 </style>

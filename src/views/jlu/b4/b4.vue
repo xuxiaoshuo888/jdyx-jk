@@ -40,11 +40,21 @@
                     },
                     xAxis: {
                         type: 'value',
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff',
+                            }
+                        },
                         boundaryGap: [0, 0.1]
                     },
                     yAxis: {
                         type: 'category',
-                        data: []
+                        data: [],
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff',
+                            }
+                        },
                     },
                     series: [
                         {

@@ -1,6 +1,6 @@
 <template>
     <!--新生前十-->
-    <div id="a4" class="fullSize height200"></div>
+    <div id="a4" class="fullSize" style="width:44rem !important;height:102rem !important;"></div>
 </template>
 
 <script>
@@ -62,14 +62,24 @@
                     },
                     xAxis: {
                         type: 'value',
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff',
+                            }
+                        },
                         boundaryGap: [0, 0.1]
                     },
                     yAxis: {
                         type: 'category',
-                        nameGap: 1,
-                        boundaryGap:false,
+                        // nameGap: 1,
+                        // boundaryGap:10,
                         nameTextStyle: {
                             fontSize: '10'
+                        },
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff',
+                            }
                         },
                         nameRotate:60,
                         data: [

@@ -57,7 +57,8 @@
                 area: "",
                 time: "",
                 date: "",
-                data: {}
+                data: {},
+                timer: ""
             }
         },
         methods: {
@@ -147,7 +148,7 @@
                     width: 50%;
                 }
                 .weather {
-                    font-size: 1rem;
+                    font-size: 1.4rem;
                     font-family: SourceHanSansCN-Regular;
                     font-weight: 400;
                     color: rgba(246, 246, 247, 1);

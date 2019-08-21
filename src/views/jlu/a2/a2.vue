@@ -41,6 +41,7 @@
                 ybd: '00000',
                 wbd: '00000',
                 bdl: '0',
+                update:"",//定时器
                 option: {
                     color: [
                         '#2ac5a9',
@@ -104,6 +105,7 @@
                 Chart_a2.setOption(this.option);
             },
             getData() {
+                console.log('a2update')
                 this.$axios.get('/api/bdl').then(res => {
                     this.bdl = res.data.data.bdl + '';
                     this.option.graphic.style.text = res.data.data.bdl + '';
@@ -145,6 +147,15 @@
                 setTimeout(() => {
                     Chart_a2.resize();
                 }, 300)
+            }
+            //间隔更新数据
+            this.update = setInterval(() => {
+                this.getData()
+            }, 10000)
+        },
+        beforeDestroy() {
+            if (this.update) {
+                clearInterval(this.update)
             }
         }
     }

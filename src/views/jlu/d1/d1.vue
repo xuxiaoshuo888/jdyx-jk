@@ -1,6 +1,6 @@
 <template>
     <!--少数名族占比前十学院-->
-    <div id="d1" class="fullSize"></div>
+    <div id="d1" class="fullSize" style="width:44rem !important;height:102rem !important;"></div>
 </template>
 
 <script>
@@ -41,10 +41,20 @@
                     },
                     xAxis: {
                         type: 'value',
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff',
+                            }
+                        },
                         boundaryGap: [0, 0.1]
                     },
                     yAxis: {
                         type: 'category',
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff',
+                            }
+                        },
                         data: []
                     },
                     series: [

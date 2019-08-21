@@ -1,5 +1,5 @@
 <template>
-    <div id="d3" class="fullSize height200"></div>
+    <div id="d3" class="fullSize" style="width:44rem !important;height:102rem !important;"></div>
 </template>
 
 <script>
@@ -20,8 +20,8 @@
                     title: {
                         text: '各省份学生人数统计',
                         subtext: '',
-                        left:10,
-                        top:10,
+                        left: 10,
+                        top: 10,
                         textStyle: {color: '#fff', fontSize: 18}
                     },
                     tooltip: {
@@ -40,10 +40,20 @@
                     },
                     xAxis: {
                         type: 'value',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff',
+                            }
+                        },
                         boundaryGap: [0, 0.1]
                     },
                     yAxis: {
                         type: 'category',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff',
+                            }
+                        },
                         data: []
                     },
                     series: [
