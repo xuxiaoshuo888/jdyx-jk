@@ -41,7 +41,7 @@
                 ybd: '00000',
                 wbd: '00000',
                 bdl: '0',
-                update:"",//定时器
+                update: "",//定时器
                 option: {
                     color: [
                         '#2ac5a9',
@@ -62,10 +62,10 @@
                             text: "报到率",
                             textAlign: "center",
                             fill: "#fff",
-                            fontSize: 16
+                            fontSize: 12
                         }
                     },
-                    tooltip : {
+                    tooltip: {
                         trigger: 'item',
                         formatter: "{b} <br/> {c}人 ({d}%)"
                     },
@@ -105,7 +105,6 @@
                 Chart_a2.setOption(this.option);
             },
             getData() {
-                console.log('a2update')
                 this.$axios.get('/api/bdl').then(res => {
                     this.bdl = res.data.data.bdl + '';
                     this.option.graphic.style.text = res.data.data.bdl + '';
@@ -151,7 +150,7 @@
             //间隔更新数据
             this.update = setInterval(() => {
                 this.getData()
-            }, 10000)
+            },  10000)
         },
         beforeDestroy() {
             if (this.update) {

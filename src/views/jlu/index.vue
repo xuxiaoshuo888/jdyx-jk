@@ -97,7 +97,7 @@
         components: {a1, a2, a4, b3, b4, c3, c2, d1, d2, d3},
         data() {
             return {
-                b2_list: [],
+                b2_list: [{xm: '张三', xh: '123123123', xy: '工学院', czrq: '20180808'}],
                 schoolName: "",
                 currentYear: "",
                 intervalTime: 5000,//右侧轮播图轮播间隔
