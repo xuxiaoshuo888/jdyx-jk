@@ -16,16 +16,7 @@
             return {
                 update_hourbdl: "",
                 option: {
-                    color: ['#2ac5a9',
-                        '#ed82b0',
-                        '#2AC5A9',
-                        '#FFD441',
-                        '#ED82B0',
-                        '#0081D0',
-                        '#D58AEA',
-                        '#74C3CE',
-                        '#6283C0',
-                        '#5F83B7'],
+                    color: ['#2ac5a9', '#ed82b0', '#2AC5A9', '#FFD441', '#ED82B0', '#0081D0', '#D58AEA', '#74C3CE', '#6283C0', '#5F83B7'],
                     textStyle: {color: '#fff'},
                     title: {
                         text: '新生报到实时监测',
@@ -37,7 +28,7 @@
                         trigger: 'axis'
                     },
                     xAxis: {
-                        data: [],
+                        data: [''],
                         axisLine: {
                             lineStyle: {
                                 color: '#fff',
@@ -71,7 +62,7 @@
                     series: {
                         name: '报到人数',
                         type: 'line',
-                        data: [],
+                        data: [''],
                         markLine: {
                             silent: true,
                             data: [{
@@ -92,10 +83,12 @@
         },
         methods: {
             initD2() {
+                debugger
                 Chart_d2 = echarts.init(document.getElementById('d2'));
                 Chart_d2.setOption(this.option);
             },
             getData() {
+                debugger
                 console.log('d2update')
                 this.$axios.get('/api/hour_bdl').then(res => {
                     let data = res.data.data
@@ -117,12 +110,12 @@
             }
         },
         mounted() {
-            this.initD2()
             this.getData()
+            this.initD2()
             //间隔更新数据
-            this.update_hourbdl = setInterval(() => {
-                this.getData()
-            }, 10000)
+            // this.update_hourbdl = setInterval(() => {
+            //     this.getData()
+            // }, 10000)
             //窗口大小改变时，图标自动适应宽高
             window.onresize = function () {
                 console.log('resize d2')
