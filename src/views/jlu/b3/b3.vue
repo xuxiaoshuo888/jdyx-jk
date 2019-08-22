@@ -16,9 +16,9 @@
                 male_zrs: "",//男-总人数
                 female_ybd: "",//女-已报到
                 femal_zrs: "",//女-总人数
-                update:"",
+                update: "",
                 option: {
-                    color: ['#FFD441', '#2AC5A9'],
+                    color: ['#2AC5A9'],
                     textStyle: {color: '#fff'},
                     title: {
                         text: '已报到男女新生比例',
@@ -31,7 +31,7 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: "{b}<br/>报到率:  {c}%",
+                        formatter: "{b}<br/>报到率:  {c}",
                         textStyle: {color: '#fff'}
                     },
                     grid: {
@@ -43,13 +43,15 @@
                     xAxis: {
                         name: '人数',
                         type: 'value',
+                        show:false,
                         axisLine: {
+                            show: false,
                             lineStyle: {
                                 color: '#fff',
                             }
                         },
                         splitLine: {
-                            show: true,
+                            show: false,
                             lineStyle: {
                                 color: 'rgba(255,255,255,0.2)'
                             }
@@ -59,18 +61,42 @@
                     yAxis: {
                         type: 'category',
                         axisLine: {
-                            lineStyle: {
-                                color: '#fff',
-                            }
+                            show: false,
+                            // lineStyle: {
+                            //     color: '#fff',
+                            // }
                         },
-                        inverse: true,
                         data: ['男', '女']
                     },
                     series: [
                         {
                             type: 'bar',
                             barWidth: '60%',
-                            data: [0, 0]
+                            label: {
+                                show: true,
+                                position: 'inside'
+                            },
+                            itemStyle: {
+                                // normal: {
+                                //     // color: '#2AC5A9'
+                                // },
+                                barBorderRadius:50,
+                            },
+                            data: [40, 50]
+                        },
+                        {
+                            type: 'bar',
+                            barWidth: '60%',
+                            label: {
+                                show: false,
+                                position: 'inside'
+                            },
+                            itemStyle: {
+                                color: 'rgba(255,255,255,0.1)',
+                                barBorderRadius: 50,
+                            },
+                            barGap: '-100%',
+                            data: [1, 1]
                         }
                     ]
                 },
@@ -90,7 +116,7 @@
                     Chart_b3.setOption({
                         series: [
                             {
-                                data: [this.male_ybd / this.male_zrs, this.female_ybd / this.femal_zrs]
+                                data: [(this.male_ybd / this.male_zrs).toFixed(2), (this.female_ybd / this.femal_zrs).toFixed(2)]
                             }
                         ]
                     })
@@ -102,7 +128,7 @@
             this.initB3()
             this.update = setInterval(() => {
                 this.getData()
-            },  10000)
+            }, 10000)
             //窗口大小改变时，图标自动适应宽高
             // window.onresize = function () {
             //     console.log('resize b3')
