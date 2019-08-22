@@ -31,7 +31,10 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: "{b}<br/>报到率:  {c}",
+                        formatter : function(params) {
+                            return params[0].name+'<br>总人数：'+params[0].data.zrs+'<br>已报到：'+params[0].data.ybd+'<br>报到率: '+params[0].value+'%';
+                        },
+                        // formatter: "{b}<br/>报到率:  {c}",
                         textStyle: {color: '#fff'}
                     },
                     grid: {
@@ -66,7 +69,7 @@
                             //     color: '#fff',
                             // }
                         },
-                        data: ['男', '女']
+                        data: ['女', '男']
                     },
                     series: [
                         {
@@ -96,7 +99,7 @@
                                 barBorderRadius: 50,
                             },
                             barGap: '-100%',
-                            data: [1, 1]
+                            data: [100, 100]
                         }
                     ]
                 },
@@ -109,14 +112,17 @@
             },
             getData() {
                 this.$axios.get('/api/xbbdl').then(res => {
-                    this.male_ybd = res.data.data[0].ybd,//男-已报到
+                        this.male_ybd = res.data.data[0].ybd,//男-已报到
                         this.male_zrs = res.data.data[0].zrs,//男-总人数
                         this.female_ybd = res.data.data[1].ybd,//女-已报到
-                        this.femal_zrs = res.data.data[1].zrs//女-总人数
+                        this.female_zrs = res.data.data[1].zrs//女-总人数
                     Chart_b3.setOption({
                         series: [
                             {
-                                data: [(this.male_ybd / this.male_zrs).toFixed(2), (this.female_ybd / this.femal_zrs).toFixed(2)]
+                                data: [
+                                    {zrs:this.female_zrs, ybd:this.female_ybd, value: (this.female_ybd*100 / this.female_zrs).toFixed(2)},
+                                    {zrs:this.male_zrs, ybd:this.male_ybd, value: (this.male_ybd*100 / this.male_zrs).toFixed(2)}
+                                ]
                             }
                         ]
                     })
