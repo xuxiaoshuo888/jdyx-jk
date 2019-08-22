@@ -4,21 +4,21 @@
             <div class="rs color1">
                 <div class="pot"></div>
                 <span class="ts">总人数：</span>
-                <div class="sz">
+                <div class="sz" id="zrs">
                     <span v-for="(i,index) in zrs" :key="index">{{i}}</span>
                 </div>
             </div>
             <div class="rs color2">
                 <div class="pot"></div>
                 <span class="ts">已报到：</span>
-                <div class="sz">
+                <div class="sz" id="ybd">
                     <span v-for="(i,index) in ybd" :key="index">{{i}}</span>
                 </div>
             </div>
             <div class="rs color3">
                 <div class="pot"></div>
                 <span class="ts">未报到：</span>
-                <div class="sz">
+                <div class="sz" id="wbd">
                     <span v-for="(i,index) in wbd" :key="index">{{i}}</span>
                 </div>
             </div>
@@ -108,6 +108,31 @@
                 this.$axios.get('/api/bdl').then(res => {
                     this.bdl = res.data.data.bdl + '';
                     this.option.graphic.style.text = res.data.data.bdl + '';
+                    //判断数据是否更新，如果更新则添加动画
+                    if (this.zrs && res.data.data.zrs) {//数据均存在
+                        if (this.zrs !== this.addPreZero(res.data.data.zrs)) {//数据不相同
+                            document.getElementById("zrs").setAttribute("class", "sz animated flipInX slow");
+                            setTimeout(function () {
+                                document.getElementById("zrs").setAttribute("class", "sz");
+                            }, 2000)
+                        }
+                    }
+                    if (this.ybd && res.data.data.ybd) {//数据均存在
+                        if (this.ybd !== this.addPreZero(res.data.data.ybd)) {//数据不相同
+                            document.getElementById("ybd").setAttribute("class", "sz animated flipInX slow");
+                            setTimeout(function () {
+                                document.getElementById("ybd").setAttribute("class", "sz");
+                            }, 2000)
+                        }
+                    }
+                    if (this.wbd && res.data.data.wbd) {//数据均存在
+                        if (this.wbd !== this.addPreZero(res.data.data.wbd)) {//数据不相同
+                            document.getElementById("wbd").setAttribute("class", "sz animated flipInX slow");
+                            setTimeout(function () {
+                                document.getElementById("wbd").setAttribute("class", "sz");
+                            }, 2000)
+                        }
+                    }
                     //位数不到5位，需要对字符串开头进行补全
                     this.zrs = this.addPreZero(res.data.data.zrs);
                     this.ybd = this.addPreZero(res.data.data.ybd);
@@ -150,7 +175,7 @@
             //间隔更新数据
             this.update = setInterval(() => {
                 this.getData()
-            },  10000)
+            }, 10000)
         },
         beforeDestroy() {
             if (this.update) {

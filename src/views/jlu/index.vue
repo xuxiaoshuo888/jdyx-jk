@@ -23,7 +23,7 @@
                         <div class="title">
                             最新报到的学生
                         </div>
-                        <el-row :gutter="10">
+                        <el-row :gutter="10" style="overflow: hidden">
                             <el-row style="margin-top: 1rem;padding: 0 5px;">
                                 <el-col :span="8" class="head">学号</el-col>
                                 <el-col :span="8" class="head">姓名</el-col>
@@ -31,23 +31,26 @@
                                 <!--<el-col :span="6" class="head">学院</el-col>-->
                                 <el-col :span="8" class="head">到校时间</el-col>
                             </el-row>
-                            <div v-if="b2_list.length > 0">
-                                <el-row v-for="(i,index) in b2_list" :key="index"
-                                        style="margin-top: 1rem;padding: 0 5px;">
-                                    <el-col :span="8" class="body">{{i.xh}}</el-col>
-                                    <el-col :span="8" v-if="i.xm.length > 6" style="font-size: 0.8rem" class="body">
-                                        {{i.xm}}
-                                    </el-col>
-                                    <el-col :span="8" v-else class="body">{{i.xm}}</el-col>
-                                    <!--<el-col :span="8" class="body">{{i.xb}}</el-col>-->
-                                    <!--<el-col :span="6" class="body">{{i.xy}}</el-col>-->
-                                    <el-col :span="8" class="body">{{(i.czrq).substr(5,11)}}</el-col>
+                            <div id="zxbd">
+                                <div v-if="b2_list.length > 0">
+                                    <el-row v-for="(i,index) in b2_list" :key="index"
+                                            style="margin-top: 1rem;padding: 0 5px;">
+                                        <el-col :span="8" class="body">{{i.xh}}</el-col>
+                                        <el-col :span="8" v-if="i.xm.length > 6" style="font-size: 0.8rem" class="body">
+                                            {{i.xm}}
+                                        </el-col>
+                                        <el-col :span="8" v-else class="body">{{i.xm}}</el-col>
+                                        <!--<el-col :span="8" class="body">{{i.xb}}</el-col>-->
+                                        <!--<el-col :span="6" class="body">{{i.xy}}</el-col>-->
+                                        <el-col :span="8" class="body">{{(i.czrq).substr(5,11)}}</el-col>
+                                    </el-row>
+                                </div>
+                                <el-row v-else
+                                        style="width: 100%;height: 50%;text-align: center;font-size: 18px;padding-top: 5rem;">
+                                    暂无数据
                                 </el-row>
                             </div>
-                            <el-row v-else
-                                    style="width: 100%;height: 50%;text-align: center;font-size: 18px;padding-top: 5rem;">
-                                暂无数据
-                            </el-row>
+
                         </el-row>
                     </div>
                 </div>
@@ -117,6 +120,17 @@
             },
             getData_b2() {//最新报到的学生信息
                 this.$axios.get('/api/newstudent').then(res => {
+                    //判断数据第一条，如果有更新则执行动画
+                    if (res.data.data.length > 0 && this.b2_list.length > 0) {
+                        // console.log(res.data.data[0].xh)
+                        // console.log(this.b2_list[0].xh)
+                        if (res.data.data[0].xh !== this.b2_list[0].xh) {
+                            document.getElementById("zxbd").setAttribute("class", "animated slideInUp slower");
+                            setTimeout(function () {
+                                document.getElementById("zxbd").setAttribute("class", "");
+                            }, 5000)
+                        }
+                    }
                     this.b2_list = res.data.data
                 })
             }
