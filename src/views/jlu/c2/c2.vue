@@ -215,7 +215,7 @@
                         tooltip: {
                             formatter: (res) => {//格式化
                                 let data = res.data
-                                let str = `${data.name}<br/>总人数：${data.zrs}人<br/>${type[0]}：${data['zykl0']}人<br/>${type[1]}：${data['zykl1']}人<br/>${type[2]}：${data['zykl2']}人<br/>${type[3]}：${data['zykl3']}人<br/>`
+                                let str = `${data.name}<br/>总人数：${data.zrs}人<br/>${type[0]}：${data['zykl0']}人<br/>${type[1]}：${data['zykl1']}人`
                                 return str
                             }
                         },

@@ -35,7 +35,7 @@
                                 <el-row v-for="(i,index) in b2_list" :key="index"
                                         style="margin-top: 1rem;padding: 0 15px;">
                                     <el-col :span="8" class="body">{{i.xh}}</el-col>
-                                    <el-col :span="8" class="body">{{i.xm}}</el-col>
+                                    <el-col :span="8" class="body" :id="'xm' + index">{{i.xm}}</el-col>
                                     <!--<el-col :span="8" class="body">{{i.xb}}</el-col>-->
                                     <!--<el-col :span="6" class="body">{{i.xy}}</el-col>-->
                                     <el-col :span="8" class="body">{{(i.czrq).substr(5,11)}}</el-col>
