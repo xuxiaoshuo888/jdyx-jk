@@ -112,9 +112,6 @@
                                 }
                             },
                             zlevel: 6,
-                            tooltip: {
-                                formatter: '{b}'
-                            },
                             data: []
                         },
                         {
@@ -141,9 +138,6 @@
                                     shadowBlur: 10,
                                     shadowColor: 'yellow'
                                 }
-                            },
-                            tooltip: {
-                                formatter: '{b}'
                             },
                             zlevel: 10
                         }
@@ -204,33 +198,64 @@
                 this.$axios.get('/api/syddetail').then(res => {
                     this.type = res.data.data.zykls;
                     this.list = res.data.data.list;
+                    let toolTipData = [];
+                    let data_list = [];
                     //处理数据，syd字段,添加name
                     for (let i = 0; i < this.list.length; i++) {
-                        this.list[i].name = this.list[i].syd
-                        this.list[i].value = this.list[i].zrs
-
+                        data_list.push({name:this.list[i].syd, value: this.list[i].zrs });
+                        toolTipData.push({name: this.list[i].syd, value: []});
+                        for(let j=0; j<this.type.length; j++) {
+                            toolTipData[toolTipData.length-1].value.push({name: this.type[j], value: this.list[i]['zykl'+j]});
+                        }
                     }
-                    let type = this.type
                     Chart_c2.setOption({
+                        // tooltip: {
+                        //     formatter: function(res) {//格式化
+                        //         let data = res.data
+                        //         let str = `${data.name}<br/>总人数：${data.zrs}人<br/>${type[0]}：${data['zykl0']}人<br/>${type[1]}：${data['zykl1']}人`
+                        //         return str
+                        //     }
+                        // }
                         tooltip: {
-                            formatter: (res) => {//格式化
-                                let data = res.data
-                                let str = `${data.name}<br/>总人数：${data.zrs}人<br/>${type[0]}：${data['zykl0']}人<br/>${type[1]}：${data['zykl1']}人`
-                                return str
+                            trigger: 'item',
+                            formatter: function(params) {
+                                if (typeof(params.value)[2] == "undefined") {
+                                    let toolTiphtml = ''
+                                    for(let i = 0;i<toolTipData.length;i++){
+                                        if(params.name==toolTipData[i].name){
+                                            toolTiphtml += toolTipData[i].name+':<br>'
+                                            for(let j = 0;j<toolTipData[i].value.length;j++){
+                                                toolTiphtml+=toolTipData[i].value[j].name+':'+toolTipData[i].value[j].value+"<br>"
+                                            }
+                                        }
+                                    }
+                                    return toolTiphtml;
+                                } else {
+                                    let toolTiphtml = ''
+                                    for(let i = 0;i<toolTipData.length;i++){
+                                        if(params.name==toolTipData[i].name){
+                                            toolTiphtml += toolTipData[i].name+':<br>'
+                                            for(let j = 0;j<toolTipData[i].value.length;j++){
+                                                toolTiphtml+=toolTipData[i].value[j].name+':'+toolTipData[i].value[j].value+"<br>"
+                                            }
+                                        }
+                                    }
+                                    return toolTiphtml;
+                                }
                             }
                         },
                         series: [
                             {
-                                data: this.convertData(this.list)
+                                data: this.convertData(data_list)
                             },
                             {
-                                data: this.list
+                                data: data_list
                             },
                             {
-                                data: this.convertData(this.list)
+                                data: this.convertData(data_list)
                             },
                             {
-                                data: this.convertData(this.list.sort(function(a, b) {
+                                data: this.convertData(data_list.sort(function(a, b) {
                                     return b.value - a.value;
                                 }).slice(0, 5))
                             }
