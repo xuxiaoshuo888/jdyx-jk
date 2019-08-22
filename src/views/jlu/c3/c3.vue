@@ -29,7 +29,10 @@
                         axisPointer: {
                             type: 'shadow'
                         },
-                        formatter: '少数名族占比{c}%',
+                        // formatter: '{b}：{c}%',
+                        formatter : function(params) {
+                            return params[0].name+'<br>总人数：'+params[0].data.zrs+'<br>少数民族：'+params[0].data.ssmzrs+' ('+params[0].value+'%)';
+                        },
                         textStyle: {color: '#fff'}
                     },
                     grid: {
@@ -84,9 +87,10 @@
                     this.list = res.data.data
                     let list_name = []
                     let list_value = []
+                    // let list_data = []
                     for (let x = 0; x < this.list.length; x++) {
                         list_name.unshift(this.list[x].deptname)
-                        list_value.unshift(this.list[x].bl)
+                        list_value.unshift({ssmzrs:this.list[x].ssmzrs, zrs:this.list[x].zrs, value:this.list[x].bl})
                     }
                     Chart_c3.setOption({
                         yAxis: {
