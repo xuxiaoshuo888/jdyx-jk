@@ -198,7 +198,7 @@
             }
             .top-right3 {
                 margin-left: 1rem;
-                font-size: 1.6rem;
+                font-size: 1.4rem;
                 font-family: SourceHanSansCN-Regular;
                 font-weight: 400;
                 color: rgba(246, 246, 247, 1);
