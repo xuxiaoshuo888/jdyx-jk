@@ -3,7 +3,7 @@
         <div class="top">
             <div class="top-left">
                 <div class="time">{{time}}</div>
-                <div class="date">{{date}} 周三</div>
+                <div class="date">{{date}} {{week}}</div>
             </div>
             <div class="top-mid"></div>
             <div class="top-right1"><img :src="data.dayIcon" alt=""><span class="weather">{{data.temp}}℃ {{data.weather}}</span>
@@ -52,13 +52,14 @@
         data() {
             return {
                 pm: "",//空气质量
-                province: "",
-                city: "",
-                area: "",
-                time: "",
-                date: "",
-                data: {},
-                timer: ""
+                province: "",//省
+                city: "",//市
+                area: "",//区
+                time: "",//时间
+                date: "",//日期
+                data: {},//天气
+                timer: "",//定时器
+                week: "",//星期
             }
         },
         methods: {
@@ -90,10 +91,17 @@
                     this.date = (new Date()).Format("yyyy-MM-dd")
                     this.time = (new Date()).Format("hh:mm:ss")
                 }, 1000)
+            },
+            getWeek() {
+                let mydate = new Date();
+                let myddy = mydate.getDay();//获取存储当前日期
+                let weekday = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+                this.week = weekday[myddy]
             }
         },
         mounted() {
             this.getTime()
+            this.getWeek()
             this.getData()
         },
         beforeDestroy() {
