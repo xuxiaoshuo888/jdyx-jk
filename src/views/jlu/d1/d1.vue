@@ -123,9 +123,9 @@
                     let list_ybd = []
                     let list_wbd = []
                     for (let x = 0; x < this.list.length; x++) {
-                        list_name.push(this.list[x].deptname)
-                        list_ybd.push(this.list[x].ybd)
-                        list_wbd.push(this.list[x].wbd)
+                        list_name.unshift(this.list[x].deptname)
+                        list_ybd.unshift(this.list[x].ybd)
+                        list_wbd.unshift(this.list[x].wbd)
                     }
                     Chart_d1.setOption({
                         yAxis: {
