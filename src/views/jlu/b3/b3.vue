@@ -82,7 +82,7 @@
                                 // },
                                 barBorderRadius:50,
                             },
-                            data: [40, 50]
+                            data: []
                         },
                         {
                             type: 'bar',
