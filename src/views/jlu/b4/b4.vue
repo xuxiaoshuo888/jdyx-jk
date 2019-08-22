@@ -83,6 +83,9 @@
                     let list_name = []
                     let list_value = []
                     for (let x = 0; x < this.list.length; x++) {
+                        if(x==10){
+                            break;
+                        }
                         list_name.unshift(this.list[x].deptname)
                         list_value.unshift(this.list[x].rs)
                     }
